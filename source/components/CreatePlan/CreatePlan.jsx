@@ -8,6 +8,9 @@ const createPlanStr = "Create Plan";
 const viewPlanStr = "View Plan";
 const logOutStr = "Log Out";
 
+const subjectStr = "Subject";
+const courseNumStr = "Course Number";
+
 const active = true;
 const notActive = false;
 
@@ -31,30 +34,83 @@ function NavBar(props){
 }
 
 // logo + navigation bar
+// image will be replaced by Image
 function Header(props){
 	return(
 		<div className="header">
-			<div className="image">
+			<div className="headerImage">
 			</div>
 			<NavBar OnClick={props.OnClick}/>
 		</div>
 	);
 }
 
+// top left input field div
 function InputField(props){
 	return(
 		<div className="inputFieldDiv">
 			<div className="inputField">
+				<span className="inputFieldText"> Subject </span>
+				<Input className="input"  placeholder={subjectStr} name={subjectStr}
+				onChange={props.OnChange} size="big"/> 
 			</div>
 			<div className="inputField">
+				<span className="inputFieldText"> Course Number </span>
+				<Input className="input" placeholder={courseNumStr} name={courseNumStr}
+				onChange={props.OnChange} size="big"/>
 			</div>
 		</div>
 	);
 }
 
+// inside the course list, the left subject list
+function LeftList(props){
+	let listItems = props.subjectList.map((element, index)=>{
+		return(
+			<div key={index} className="listItem">
+				<Button className="listButton" content={element} size="huge"/>
+			</div>
+		);
+	})
+
+	return(
+		<div className="leftList">
+			{listItems}
+		</div>
+	);
+}
+
+// inside the course list, the right subject list
+function RightList(props){
+	let listItems = props.courseList.map((element, index)=>{
+		return(
+			<div key={index} className="listItem">
+				<Button className="listButton" content={element} size="huge"/>
+			</div>
+		);
+	})
+
+	return(
+		<div className="rightList">
+			{listItems}
+		</div>
+	);
+}
+
+// bottom left course list
 function CourseList(props){
 	return(
 		<div className="courseListDiv">
+			<div className="courseListLeftSubject">
+				<div className="courseListTitle"> Subjects </div>
+				<LeftList subjectList={props.subjectList}/>
+			</div>
+			
+			<div className="courseListRightCourse">
+				<div className="courseListTitle"> Courses </div>
+				<RightList courseList={props.courseList}/>
+			</div>
+			
 		</div>
 	);
 }
@@ -70,9 +126,12 @@ function PlanInfo(props){
 function Body(props){
 	return(
 		<div className="bodyDiv">
-			<div className="innerLeftDiv">
-				<InputField />
-				<CourseList />
+			<div className="bodyDivInnerLeft">
+				<InputField OnChange={props.OnChange} />
+				<CourseList subjectList={props.subjectList} courseList={props.courseList}/>
+				<div className="bottomHintText">
+					*Click on the courses to view details or add it to the plan
+				</div>
 			</div>
 			<PlanInfo />
 		</div>
@@ -85,16 +144,36 @@ class CreatePlan extends Component{
 	constructor(props){
 		super(props);
 		this.state = {
-			redirectStr: null
+			redirectStr: null,
+			inputSubject: "",
+			inputCourseNum: "",
+			subjectList: ["Computer Science", "Math", "Chemical Engineering"],
+			courseList: ["CS 357", "CS 374", "CS 241", "CS 446", "CS 440", "CS 498", "MATH 415", "MATH 486", "CPSC 110"]
 		}
 
 		this.menuOnClick = this.menuOnClick.bind(this);
+		this.inputOnChange = this.inputOnChange.bind(this);
 	}
 
-	menuOnClick(e, {name}){
+	// header menu
+	menuOnClick(event, {name}){
 		this.setState({redirectStr: name}, ()=>{
-			console.log("Redirect to" + name);
+			console.log("Redirect to " + name);
 		})
+	}
+
+	// input field
+	inputOnChange(event, {name}){
+		if(name == subjectStr){
+			this.setState({inputSubject: event.target.value}, ()=>{
+				console.log("inputSubject: " + this.state.inputSubject);
+			})
+		}
+		if(name == courseNumStr){
+			this.setState({inputCourseNum: event.target.value}, ()=>{
+				console.log("inputCourseNum: " + this.state.inputCourseNum);
+			})
+		}
 	}
 
 	render(){
@@ -111,7 +190,8 @@ class CreatePlan extends Component{
 		return (
 			<div>
 				<Header OnClick={this.menuOnClick}/>
-				<Body />
+				<Body OnChange={this.inputOnChange} subjectList={this.state.subjectList} 
+				courseList={this.state.courseList}/>
 			</div>
 		);
 	}
