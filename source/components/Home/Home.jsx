@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Button } from 'semantic-ui-react'
-import { Link } from 'react-router-dom'
 import { HashRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom'
 
 import styles from './Home.scss'
