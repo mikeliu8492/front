@@ -10,6 +10,8 @@ import Register from "../Register/Register.jsx"
 import CreatePlan from "../CreatePlan/CreatePlan.jsx"
 import ViewPlan from "../ViewPlan/ViewPlan.jsx"
 
+// var BrowserHistory = require('react-router/lib/BrowserHistory').default;
+
 class Home extends Component {
 	// router
     render() {
@@ -17,7 +19,7 @@ class Home extends Component {
             <Router>
 				<Switch>
 					<Route exact path="/" render={()=>{
-						return <Redirect to="/login"/>;
+						return <Redirect to="/create"/>;
 					}}/>
 					<Route exact path="/login" render={()=>{
 						return <Login />;
