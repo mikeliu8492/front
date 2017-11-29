@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Button } from 'semantic-ui-react'
-import { Link } from 'react-router-dom'
 import { HashRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom'
 
 import styles from './Home.scss'
@@ -11,6 +10,8 @@ import Register from "../Register/Register.jsx"
 import CreatePlan from "../CreatePlan/CreatePlan.jsx"
 import ViewPlan from "../ViewPlan/ViewPlan.jsx"
 
+// var BrowserHistory = require('react-router/lib/BrowserHistory').default;
+
 class Home extends Component {
 	// router
     render() {
@@ -18,7 +19,7 @@ class Home extends Component {
             <Router>
 				<Switch>
 					<Route exact path="/" render={()=>{
-						return <Redirect to="/login"/>;
+						return <Redirect to="/create"/>;
 					}}/>
 					<Route exact path="/login" render={()=>{
 						return <Login />;
