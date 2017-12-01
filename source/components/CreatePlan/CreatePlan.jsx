@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Image, List, Menu, Button, Input } from 'semantic-ui-react'
+import { Image, List, Menu, Button, Input, Table, Message, Form, Label, Icon} from 'semantic-ui-react'
 import { Redirect, Link } from 'react-router-dom'
 
 import styles from './CreatePlan.scss'
@@ -8,8 +8,8 @@ const createPlanStr = "Create Plan";
 const viewPlanStr = "View Plan";
 const logOutStr = "Log Out";
 
-const subjectStr = "Subject";
-const courseNumStr = "Course Number";
+const subjectStr = "example: CS";
+const courseNumStr = "example: 374";
 
 const active = true;
 const notActive = false;
@@ -18,17 +18,19 @@ const notActive = false;
 function NavBar(props){
 	return(
 		<div className="navbarDiv">
-			<Menu className="navbar" floated="right" size="massive" borderless color="green" inverted>
+
+			<Menu className="navbar" floated="right" inverted secondary>
 				<Menu.Item name={createPlanStr} active={active} onClick={props.OnClick} position="right">
 		          	{createPlanStr}
 		        </Menu.Item>
-		        <Menu.Item name={viewPlanStr} active={notActive} onClick={props.OnClick} position="right">
+		        <Menu.Item name={viewPlanStr} active={active} onClick={props.OnClick} position="right">
 		          	{viewPlanStr}
 		        </Menu.Item>
-		        <Menu.Item name={logOutStr} active={notActive} onClick={props.OnClick} position="right">
+		        <Menu.Item name={logOutStr} active={active} onClick={props.OnClick} position="right">
 		          	{logOutStr}
 		        </Menu.Item>
 			</Menu>
+
 		</div>
 	);
 }
@@ -38,8 +40,8 @@ function NavBar(props){
 function Header(props){
 	return(
 		<div className="header">
-			<div className="headerImage">
-			</div>
+			<div className="headerImage"></div>
+            <a className="header_title">UIUC Course Scheduler</a>
 			<NavBar OnClick={props.OnClick}/>
 		</div>
 	);
@@ -49,16 +51,23 @@ function Header(props){
 function InputField(props){
 	return(
 		<div className="inputFieldDiv">
-			<div className="inputField">
-				<span className="inputFieldText"> Subject </span>
-				<Input className="input"  placeholder={subjectStr} name={subjectStr}
-				onChange={props.OnChange} size="big"/> 
+            <h1 className="inputFieldTitle title">Look Up Course</h1>
+			<div className="inputField1">
+				<Input className="input"  label="&nbsp;&nbsp;Subject&nbsp;&nbsp;&nbsp;&nbsp;" color="blue" placeholder={subjectStr} name={subjectStr}
+				onChange={props.OnChange} />
 			</div>
-			<div className="inputField">
-				<span className="inputFieldText"> Course Number </span>
-				<Input className="input" placeholder={courseNumStr} name={courseNumStr}
-				onChange={props.OnChange} size="big"/>
+			<div className="inputField2">
+				<Input className="input" label="Course ID" placeholder={courseNumStr} name={courseNumStr}
+				onChange={props.OnChange} />
 			</div>
+
+            <div className="inputFieldMessage">
+                <Message size="big">
+                    <div className="content">
+                        <p> Click on the course to view detailed information and add it to your course list.</p>
+                    </div>
+                </Message>
+            </div>
 		</div>
 	);
 }
@@ -67,16 +76,18 @@ function InputField(props){
 function LeftList(props){
 	let listItems = props.subjectList.map((element, index)=>{
 		return(
-			<div key={index} className="listItem">
-				<Button className="listButton" content={element} size="huge"/>
-			</div>
+			<li key={index} className="listItem">
+				{element}
+			</li>
 		);
 	})
 
 	return(
-		<div className="leftList">
+
+            <ul className="leftList">
 			{listItems}
-		</div>
+            </ul>
+
 	);
 }
 
@@ -84,16 +95,18 @@ function LeftList(props){
 function RightList(props){
 	let listItems = props.courseList.map((element, index)=>{
 		return(
-			<div key={index} className="listItem">
-				<Button className="listButton" content={element} size="huge"/>
-			</div>
+            <List.Item key={index}>
+                <div className="rightItem">{element}</div>
+            </List.Item>
 		);
 	})
 
 	return(
-		<div className="rightList">
-			{listItems}
-		</div>
+        <div className="rightList">
+	        <List selection>
+			        {listItems}
+            </List>
+        </div>
 	);
 }
 
@@ -101,16 +114,21 @@ function RightList(props){
 function CourseList(props){
 	return(
 		<div className="courseListDiv">
-			<div className="courseListLeftSubject">
-				<div className="courseListTitle"> Subjects </div>
-				<LeftList subjectList={props.subjectList}/>
-			</div>
-			
-			<div className="courseListRightCourse">
-				<div className="courseListTitle"> Courses </div>
-				<RightList courseList={props.courseList}/>
-			</div>
-			
+            <Table celled size="large" color="yellow">
+                <Table.Header>
+                    <Table.Row>
+                        <Table.HeaderCell>Subjects</Table.HeaderCell>
+                        <Table.HeaderCell>Courses</Table.HeaderCell>
+                    </Table.Row>
+                </Table.Header>
+
+                <Table.Body>
+                    <Table.Row>
+                        <Table.Cell width="1"><LeftList subjectList={props.subjectList}/></Table.Cell>
+                        <Table.Cell><RightList courseList={props.courseList}/></Table.Cell>
+                    </Table.Row>
+                </Table.Body>
+            </Table>
 		</div>
 	);
 }
@@ -118,7 +136,43 @@ function CourseList(props){
 function PlanInfo(props){
 	return(
 		<div className="planInfoDiv">
+            <h1 className="planInfoTitle title">New Plan</h1>
+            <div className="planName">
+                <h3 className="nameTag">Plan Name:</h3>
+                <Input className="nameInput" placeholder='' size="small" />
+            </div>
+            <div className="courseListTag">
+                <h3> Course List</h3>
+                <a className="credit"> total: {props.credit} credit</a>
+            </div>
+            <div className="courseList">
+                <AddList course={props.course}/>
+            </div>
+            <div className="buttons">
+                <Button size="large" primary>Create Plan</Button>
+                <Button size="large" primary>Reset Plan</Button>
+            </div>
 		</div>
+	);
+}
+
+function AddList(props){
+	let listItems = props.course.map((element, index)=>{
+		return(
+			<li key={index} className="addTag">
+			    <Label size="large" as='a' tag>
+                    {element}
+                </Label>
+			</li>
+		);
+	})
+
+	return(
+
+            <ul className="addList">
+			{listItems}
+            </ul>
+
 	);
 }
 
@@ -126,14 +180,12 @@ function PlanInfo(props){
 function Body(props){
 	return(
 		<div className="bodyDiv">
-			<div className="bodyDivInnerLeft">
+            <PlanInfo credit={props.credit} course={props.course}/>
+			<div className="bodyDivInnerRight">
 				<InputField OnChange={props.OnChange} />
 				<CourseList subjectList={props.subjectList} courseList={props.courseList}/>
-				<div className="bottomHintText">
-					*Click on the courses to view details or add it to the plan
-				</div>
 			</div>
-			<PlanInfo />
+
 		</div>
 	);
 
@@ -147,9 +199,11 @@ class CreatePlan extends Component{
 			redirectStr: null,
 			inputSubject: "",
 			inputCourseNum: "",
-			subjectList: ["Computer Science", "Math", "Chemical Engineering"],
-			courseList: ["CS 357", "CS 374", "CS 241", "CS 446", "CS 440", "CS 498", "MATH 415", "MATH 486", "CPSC 110"]
-		}
+			subjectList: ["CS","CE","CEE","MATH","PHYS","PHIL"],
+			courseList: ["CS 357 	Numerical Methods I", "CS 374 Algorithms & Models of Computation", "CS 241 	System Programming", "CS 446 Machine Learning", "CS 440 Artificial Intelligence", "CS 411 Database System"],
+            course: ["CS 357 	Numerical Methods I", "CS 374 Algorithms & Models of Computation","MATH 415 Linear Algebra","CS 225 Data Structure"],
+            credit: 12
+        }
 
 		this.menuOnClick = this.menuOnClick.bind(this);
 		this.inputOnChange = this.inputOnChange.bind(this);
@@ -190,8 +244,8 @@ class CreatePlan extends Component{
 		return (
 			<div>
 				<Header OnClick={this.menuOnClick}/>
-				<Body OnChange={this.inputOnChange} subjectList={this.state.subjectList} 
-				courseList={this.state.courseList}/>
+				<Body OnChange={this.inputOnChange} subjectList={this.state.subjectList}
+				courseList={this.state.courseList} course={this.state.course} credit={this.state.credit}/>
 			</div>
 		);
 	}

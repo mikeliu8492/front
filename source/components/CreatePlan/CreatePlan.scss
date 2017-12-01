@@ -1,47 +1,101 @@
+
 .navbarDiv{
-	
+    padding: 6px;
 }
 
 .header{
 	position: relative;
 	width: 100%;
 	height: 52px;
-	background-color: green;
+	background-color: rgb(80, 80, 80);
+    box-shadow: 0px 3px 5px #aaa;
+    z-index: 3;
 }
 
 .headerImage{
 	position: relative;
 	float: left;
-	width: 150px;
-	height: 100%;
-	background-color: blue;
+    margin: 7px;
+	width: 36px;
+	height: 36px;
+    background-size: cover;
+	background-image: url("../../assets/Picture1.png");
 }
 
+.header_title{
+    position: absolute;
+    left: 60px;
+    top: 17px;
+    font-size: 1.6em;
+    color: rgb(249, 141, 62);
+    font-weight: bold;
+    cursor: default;
+}
+
+.header_title:hover{
+    color: rgb(249, 141, 62);
+    font-weight: bold;
+
+}
 
 .inputFieldDiv{
 	position: relative;
+    padding-left: 30px;
 	width: 100%;
-	height: 150px;
-	background-color: black;
+	height: 180px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
 	align-items: center;
+    background-color: rgb(252, 251, 249);
+    border: 1px solid rgb(200, 200, 200);
 }
 
-.inputField{
-	position: relative;
-	height: 75px;
-	width: 100%;
-	background-color: red;
+.inputFieldTitle{
+    position: absolute;
+    top: 15px;
+    left: 20px;
+}
+
+.title{
+    font-size: 2.4em;
+}
+.inputField1{
+    position: absolute;
+    left: 20px;
+    top: 70px;
+	height: 50px;
+	width: 700px;
+    line-height: 50px;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
+}
 
-	border-style: solid;
-	border-width: 1px;
-	border-radius: 20px;
+.inputFieldMessage{
+    position: absolute;
+    top: 75px;
+    right: 20px;
+
+}
+
+.content{
+    height:50px;
+    width: 380px;
+}
+
+.inputField2{
+    position: absolute;
+    top: 120px;
+    left: 20px;
+	height: 50px;
+	width: 700px;
+    line-height: 50px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
 }
 
 .inputFieldText{
@@ -56,10 +110,10 @@
 
 
 .courseListDiv{
+    padding: 0px;
 	position: relative;
 	width: 100%;
-	height: 500px;
-	background-color: black;
+	height: 800px;
 	display: flex;
 	flex-direction: row;
 }
@@ -68,44 +122,98 @@
 .courseListLeftSubject{
 	width: 40%;
 	height: 100%;
-	background-color: green;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
 	align-items: center;
-
-	border-style: solid;
-	border-width: 1px;
-	border-radius: 20px;
 }
 
 .leftList{
-	width: 90%;
-	height: 80%;
+	width: 110px;
+    height: 600px;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: center;
-	background: white;
+    overflow-x: hidden;
 	overflow-y: auto;
-	overflow-x: hidden;;
+    list-style-type:none;
+    margin:0px;
+    padding: 20px 0px 0px 0px;
+    float: right;
 }
 
 .rightList{
-	width: 90%;
-	height: 80%;
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-start;
-	align-items: center;
-	background: white;
-	overflow-x: hidden;
-	overflow-y: auto;
+    width: 100%;
+    height: 590px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    overflow-y: auto;
+    overflow-x: hidden;
+    list-style-type:none;
+    margin:0px;
+    padding: 30px;
+}
+
+.ui.table td{
+    padding: 0px;
+}
+
+.ui.table thead{
+    text-align: center;
+}
+
+
+.ui.selection.list .list>.item, .ui.selection.list>.item{
+    color: black;
 }
 
 .listItem{
-	width: 101%;
+    margin-bottom: 5px;
+	width: 80px;
+    margin-right: -30px;
+    float: right;
+    padding-left: 10px;
+    height:50px;
+    line-height: 50px;
+    font-size: 1.0em;
+    vertical-align: middle;
+    border-color: rgb(200, 200, 200);
+    border-style: solid;
+    border-width: 1px 0px 1px 1px;
+    border-radius: 5px 0px 0px 5px;
+    cursor: pointer;
 }
+
+.rightItem{
+    width: 100%;
+    padding-left: 20px;
+    height:50px;
+    line-height: 50px;
+    font-size: 1.3em;
+    vertical-align: middle;
+}
+
+.leftList li:nth-child(3n+1){
+    background-color: rgb(139, 192, 247);
+}
+
+.leftList li:nth-child(3n+2){
+    background-color: rgb(183, 247, 143);
+}
+
+.leftList li:nth-child(3n+3){
+    background-color: rgb(255, 206, 111);
+}
+
+.leftList > li:hover{
+    width: 105px;
+
+}
+
+
 
 .listButton{
 	width: 101%;
@@ -113,16 +221,13 @@
 
 .courseListRightCourse{
 	width: 60%;
-	height: 100%;
-	background-color: blue;
+	height: 850px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
 	align-items: center;
 
-	border-style: solid;
-	border-width: 1px;
-	border-radius: 20px;
+
 }
 
 .courseListTitle{
@@ -132,29 +237,117 @@
 
 .bottomHintText{
 	min-width: 60%;
-	background-color: red;
 	font-size: 20px;
 	text-align: center;
-
-	border-style: solid;
-	border-width: 1px;
-	border-radius: 20px;
 }
 
 
-.bodyDivInnerLeft{
+.bodyDivInnerRight{
 	position: relative;
-	width: 60%;
-	height: 100%;
+	width: 70%;
+	height: 1000px;
+    background-color: rgb(252, 251, 249);
 }
+
 
 .planInfoDiv{
 	position: relative;
 	float: right;
-	width: 40%;
-	height: 670px;
-	background-color: yellow;
+	width: 30%;
+	height: 1000px;
+    background-color: rgb(252, 251, 249);
+    box-shadow: 3px 0px 3px #ccc;
+    z-index: 2;
+    text-align: center;
 }
+
+.planInfoTitle{
+    padding-top: 15px;
+}
+
+.planName{
+    margin-top: 10px;
+    height: 50px;
+    width: 100%;
+    background-color: rgb(250,250,250);
+    border-top: 1px solid rgb(200,200,200);
+    border-bottom: 2px solid rgb(200,200,200);
+}
+
+.nameTag{
+    top: 85px;
+    position: absolute;
+    display: block;
+    left: 20px;
+}
+
+.nameInput{
+    top: 6px;
+    position: absolute;
+    left: 70px;
+}
+
+.courseListTag{
+
+    text-align: left;
+    padding-top: 5px;
+    padding-left: 19px;
+    background-color: rgb(245,245,245);
+    height: 35px;
+    border-bottom: 1px solid rgb(200,200,200);
+    border-top: 2px solid rgb(244, 161, 0);
+}
+
+.credit{
+    position: absolute;
+    right: 10px;
+    top: 130px;
+    font-size: 1.0em;
+}
+
+.courseList{
+    height: 610px;
+    background-color: rgb(254, 254, 254);
+    border-bottom: 1px solid rgb(200,200,200);
+}
+
+.addList{
+
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow-y: auto;
+    overflow-x: hidden;
+    list-style-type:none;
+    padding-top: 20px;
+    padding-left: 0px;
+    float: left;
+    margin:0px;
+
+}
+
+.ui.tag.label, .ui.tag.labels .label{
+    width: 90%;
+    text-align: left;
+}
+
+.addTag{
+    margin-bottom: 10px;
+}
+
+.buttons{
+    padding-top: 10px;
+    height: 65px;
+    border-bottom: 1px solid rgb(200,200,200);
+    background-color: rgb(245,245,245);
+}
+
+.ui.primary.button, .ui.primary.buttons .button{
+    margin-right : 40px;
+}
+
+
 
 .bodyDiv{
 	position: relative;
