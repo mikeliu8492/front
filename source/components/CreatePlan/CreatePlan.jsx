@@ -14,6 +14,9 @@ const courseNumStr = "example: 374";
 const active = true;
 const notActive = false;
 
+
+
+
 // the navigation menu
 function NavBar(props){
 	return(
