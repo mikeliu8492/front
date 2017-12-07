@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { Image, List, Menu, Button, Input, Dropdown, Card, Label, Segment } from 'semantic-ui-react'
+import { Image, List, Menu, Button, Input, Dropdown, Card, Label, Segment, Table } from 'semantic-ui-react'
 import {Redirect, Link } from 'react-router-dom'
+import axios from "axios"
 
 import styles from './ViewPlan.scss'
 const createPlanStr = "Create Plan";
@@ -21,36 +22,41 @@ const plan1 = {
 			name: "Schedule 1",
 			status:"available",
 			sections:[
-				{
+                {
                     name:"CS 374",
-					code:"AL1",
-					type:"LEC",
-					start:"10:00",
-					end:"10:50"
-				},
-				{
+                    code:"AL1",
+                    days:["Monday", "Wednesday", "Friday"],
+                    type:"LEC",
+                    start:"10am",
+                    end:"10:50am"
+                },
+                {
                     name:"CS 498",
                     code:"AL1",
+                    days:["Monday", "Wednesday", "Friday"],
                     type:"LEC",
-                    start:"13:00",
-                    end:"13:50"
-				},
-				{
+                    start:"1pm",
+                    end:"1:50pm"
+                },
+                {
                     name:"CS 440",
                     code:"AL1",
+                    days:["Tuesday", "Thursday"],
                     type:"LEC",
-                    start:"15:30",
-                    end:"16:45"
-				},
-				{
-					name:"CS 225",
-					code:"AL1",
-					type:"LEC",
-					start:"11:00",
-					end:"11:50",
-				}
+                    start:"3pm",
+                    end:"4:45pm"
+                },
+                {
+                    name:"CS 225",
+                    code:"AL1",
+                    days:["Tuesday", "Thursday"],
+                    type:"LEC",
+                    start:"11am",
+                    end:"11:50am",
+                }
 
-			]
+
+            ]
 		},
 		{
             name: "Schedule 2",
@@ -59,30 +65,34 @@ const plan1 = {
                 {
                     name:"CS 374",
                     code:"AL1",
+                    days:["Tuesday", "Thursday"],
                     type:"LEC",
-                    start:"11:00",
-                    end:"11:50"
+                    start:"11am",
+                    end:"11:50am"
                 },
                 {
                     name:"CS 498",
                     code:"AL1",
+                    days:["Tuesday", "Thursday"],
                     type:"LEC",
-                    start:"14:00",
-                    end:"14:50"
+                    start:"2pm",
+                    end:"2:50pm"
                 },
                 {
                     name:"CS 440",
                     code:"AL1",
+                    days:["Monday", "Wednesday", "Friday"],
                     type:"LEC",
-                    start:"16:30",
-                    end:"17:45"
+                    start:"4pm",
+                    end:"4:50pm"
                 },
                 {
                     name:"CS 225",
+                    days:["Monday", "Wednesday", "Friday"],
                     code:"AL1",
                     type:"LEC",
-                    start:"12:00",
-                    end:"12:50",
+                    start:"12pm",
+                    end:"12:50pm",
                 }
 
             ]
@@ -104,30 +114,34 @@ const plan2 = {
                 {
                     name:"MATH 374",
                     code:"AL1",
+                    days:["Monday", "Wednesday", "Friday"],
                     type:"LEC",
-                    start:"10:00",
-                    end:"10:50"
+                    start:"10am",
+                    end:"10:50am"
                 },
                 {
                     name:"MATH 498",
                     code:"AL1",
+                    days:["Monday", "Wednesday", "Friday"],
                     type:"LEC",
-                    start:"13:00",
-                    end:"13:50"
+                    start:"1pm",
+                    end:"1:50pm"
                 },
                 {
                     name:"MATH 440",
                     code:"AL1",
+                    days:["Tuesday", "Thursday"],
                     type:"LEC",
-                    start:"15:30",
-                    end:"16:45"
+                    start:"3pm",
+                    end:"4:45pm"
                 },
                 {
                     name:"MATH 225",
                     code:"AL1",
+                    days:["Tuesday", "Thursday"],
                     type:"LEC",
-                    start:"11:00",
-                    end:"11:50",
+                    start:"11am",
+                    end:"11:50am",
                 }
 
             ]
@@ -139,31 +153,36 @@ const plan2 = {
                 {
                     name:"MATH 374",
                     code:"AL1",
+                    days:["Tuesday", "Thursday"],
                     type:"LEC",
-                    start:"11:00",
-                    end:"11:50"
+                    start:"11am",
+                    end:"11:50am"
                 },
                 {
                     name:"MATH 498",
                     code:"AL1",
+                    days:["Tuesday", "Thursday"],
                     type:"LEC",
-                    start:"14:00",
-                    end:"14:50"
+                    start:"2pm",
+                    end:"2:50pm"
                 },
                 {
                     name:"MATH 440",
                     code:"AL1",
+                    days:["Monday", "Wednesday", "Friday"],
                     type:"LEC",
-                    start:"16:30",
-                    end:"17:45"
+                    start:"4pm",
+                    end:"4:50pm"
                 },
                 {
                     name:"MATH 225",
+                    days:["Monday", "Wednesday", "Friday"],
                     code:"AL1",
                     type:"LEC",
-                    start:"12:00",
-                    end:"12:50",
+                    start:"12pm",
+                    end:"12:50pm",
                 }
+
 
             ]
         }
@@ -175,6 +194,8 @@ const options = [
     {key:1, text: "Plan1", value: plan1},
 	{key:2, text: "Plan2", value: plan2}
 ]
+const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+const times = ["8am", "9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm"]
 
 //-----------------------------
 
@@ -282,13 +303,82 @@ function LeftDiv(props){
 
 }
 
+//function to display a row in schedule calendar
+function ScheduleBlock(props){
+    let blocks = days.map((element,index)=>{
+        let i = 0
+        for(i=0; i<props.currPlan.schedules[props.currSchedule].sections.length; i++){                  //loop over the sections for the plan
+            if(props.currPlan.schedules[props.currSchedule].sections[i].start == props.time){           //check if any sections have a start time matching the current row
+                if(props.currPlan.schedules[props.currSchedule].sections[i].days.indexOf(element) > -1){//if time matches, check which day
+                    console.log("match found")
+                    return(
+                        <Table.Cell key={props.time + element}>
+                            <p>{props.currPlan.schedules[props.currSchedule].sections[i].name}</p>
+                            <p>{props.currPlan.schedules[props.currSchedule].sections[i].start}-
+                                {props.currPlan.schedules[props.currSchedule].sections[i].end}</p>
+                        </Table.Cell>
+                    )
+                }
+            }
+        }
+        //if no matches, just return an empty cell
+        return(
+            <Table.Cell key={props.time + element}>
+
+            </Table.Cell>
+        )
+    })
+    return(
+        <Table.Row>
+            <Table.Cell>{props.time}</Table.Cell>
+            {blocks}
+        </Table.Row>
+
+    )
+
+
+
+}
+//calendar component
 function Calendar(props){
-	return(
-		<div className="calendar">
+    let headers = days.map((element,index)=>{
+        return(
+            <Table.HeaderCell key={element}>{element}</Table.HeaderCell>
+        )
+
+    });
+
+    //each row is a particular time
+    let rows = times.map((element, index)=>{
+        return(
+            <ScheduleBlock key={index} time={element} currPlan={props.currPlan} currSchedule={props.currSchedule}/>
+        )
+
+    })
+
+    return(
+        <div className="calendar">
+            <Table celled fixed striped padded>
+                <Table.Header>
+                    <Table.Row>
+                        <Table.HeaderCell width="1"/>
+                        {headers}
+
+                    </Table.Row>
+
+                </Table.Header>
+
+                <Table.Body>
+                    {rows}
+
+                </Table.Body>
 
 
-		</div>
-	)
+            </Table>
+
+
+        </div>
+    )
 }
 
 //Right Div
@@ -331,7 +421,7 @@ function RightDiv(props) {
                 </div>
                 </Segment>
 			</div>
-			<Calendar/>
+            <Calendar currPlan={props.currPlan} currSchedule={props.currSchedule}/>
 
 
 		</div>
@@ -377,9 +467,9 @@ class ViewPlan extends Component{
         this.menuOnClick = this.menuOnClick.bind(this);
         this.inputOnChange = this.inputOnChange.bind(this);
         this.scheduleOnClick = this.scheduleOnClick.bind(this);
+        this.baseUrl = "http://localhost:3000";
 
 	}
-
     inputOnChange(event, data){
         this.setState({currPlan:data['value']},()=>{
             console.log("currPlan: " + this.state.currPlan)});
@@ -392,7 +482,7 @@ class ViewPlan extends Component{
     }
     scheduleOnClick(event, {name}){
     	this.setState({currScheduleIndex:name});
-		console.log(this.state.currScheduleIndex);
+		//console.log(this.state.currScheduleIndex);
 
 	}
 
@@ -406,6 +496,7 @@ class ViewPlan extends Component{
             window.location.reload();
             this.setState({redirectStr: null});
         }
+
 
 		return (
 			<div>
