@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Image, List, Menu, Button, Input, Dropdown } from 'semantic-ui-react'
+import { Image, List, Menu, Button, Input, Dropdown, Card, Label, Segment } from 'semantic-ui-react'
 import {Redirect, Link } from 'react-router-dom'
 
 import styles from './ViewPlan.scss'
@@ -15,9 +15,10 @@ const plan1 = {
     semester: "Spring 2018",
     courses:["CS 374", "CS 498", "CS 440", "CS 225"],
 	credits: "13",
+    favourate:"Schedule 1_1",
 	schedules:[
 		{
-			name: "Schedule 1_1",
+			name: "Schedule 1",
 			status:"available",
 			sections:[
 				{
@@ -52,7 +53,7 @@ const plan1 = {
 			]
 		},
 		{
-            name: "Schedule 1_2",
+            name: "Schedule 2",
 			status: "unavailable",
             sections:[
                 {
@@ -94,9 +95,10 @@ const plan2 = {
     semester: "Spring 2018",
 	credits:"12",
     courses:["MATH 374", "MATH 498", "MATH 440", "MATH 225"],
+    favourate:"Schedule 2_1",
     schedules:[
         {
-            name: "Schedule 2_1",
+            name: "Schedule 1",
 			status:"unavailable",
             sections:[
                 {
@@ -131,7 +133,7 @@ const plan2 = {
             ]
         },
         {
-            name: "Schedule 2_2",
+            name: "Schedule 2",
 			status:"available",
             sections:[
                 {
@@ -197,21 +199,63 @@ function NavBar(props){
     );
 }
 //show schedules for current plan
+function Get_button(props){
+    if(props.status == "available") return( <Button size="mini" positive>&nbsp;&nbsp;&nbsp;available&nbsp;&nbsp;&nbsp;</Button>);
+    else return (<Button size="mini" negative>unavailable</Button>);
+}
+
+
 function ScheduleList(props){
-	let temp = ""
+	let temp      = "";
+    let favourate = "";
 	if(props.currPlan != null){
-        temp = props.currPlan.schedules.map((element, index)=>{
+        favourate = props.currPlan.schedules.map((element, index)=>{
+            if(props.currPlan.favourate === element.name)
             return(
-				<List.Item key={index} active={props.currScheduleIndex == index} name={index} className="scheduleItem"
-						   content={element.name} onClick={props.ScheduleClick}/>
+                <Card centered className="favourate" key={index} name={index} onClick={props.ScheduleClick}>
+                    <Card.Content>
+                        <div className="card_in">
+                            <h3 className="schedule_name">{element.name}</h3>
+                        </div>
+                        <div className="available_tag">
+                            <Get_button status={element.status}/>
+                        </div>
+                    </Card.Content>
+                    <Card.Content extra>
+
+                    </Card.Content>
+               </Card>
+            )
+        });
+
+        temp = props.currPlan.schedules.map((element, index)=>{
+            if(props.currPlan.favourate !== element.name)
+            return(
+
+                <Card centered key={index} name={index} onClick={props.ScheduleClick}>
+                    <Card.Content>
+                        <div className="card_in">
+                            <h3 className="schedule_name">{element.name}</h3>
+                        </div>
+                        <div className="available_tag">
+                            <Get_button status={element.status}/>
+                        </div>
+                    </Card.Content>
+                    <Card.Content extra>
+
+                    </Card.Content>
+               </Card>
             )
         });
 	}
 
 	return(
-		<List selection celled className="scheduleList" size="big">
-			{temp}
-		</List>
+        <div className="scheduleList">
+	        <Card.Group itemsPerRow="1">
+                {favourate}
+			    {temp}
+		    </Card.Group>
+        </div>
 	)
 }
 
@@ -219,11 +263,10 @@ function ScheduleList(props){
 function LeftDiv(props){
 	return(
 		<div className="leftDiv">
-			<h1 className="planTitle title">Select a Plan</h1>
 			<div className="inputContainer">
 				<h3 className="inputLabel"> Plan Name: </h3>
 				<div className="dropdownContainer">
-					<Dropdown className="dropdown" selection options={options}
+					<Dropdown className="dropdown" selection options={options} size="small"
 					   onChange={props.OnChange} value={props.currPlan}/>
 				</div>
 			</div>
@@ -255,24 +298,38 @@ function RightDiv(props) {
         temp = props.currPlan.courses.map((element, index) => {
             console.log(element);
             return (
-				<h2 className="planInfoCourses" key={index}>{element}</h2>
+				<a className="planInfoCourses" key={index}>{element}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+
             )
 
         })
     }
 	return(
 		<div className="rightDiv">
-			<div className="planInfoContainer">
-				<h2 className="planInfo">{props.currPlan.name}</h2>
-				<h2 className="planInfo">Semester: {props.currPlan.semester}</h2>
-				<h2 className="planInfo">Credits: {props.currPlan.credits}</h2>
-                {temp}
-			</div>
 			<div className="scheduleNameLabel">
-				<h2>{props.currPlan.schedules[props.currSchedule].name}</h2>
-				<h3>Status: <span className={props.currPlan.schedules[props.currSchedule].status}>
-					{props.currPlan.schedules[props.currSchedule].status}</span>
-					</h3>
+                <Segment raised>
+                <Segment vertical>
+    				<h1 className="main_title">{props.currPlan.name}</h1>
+                    <a className="current_schedule">{props.currPlan.schedules[props.currSchedule].name}</a>
+                    <div className="labels">
+                        <Label size="large" as='a' color="blue" image>
+                            Semester
+                            <Label.Detail>{props.currPlan.semester}</Label.Detail>
+                        </Label>
+                        <Label size="large" as='a' color="blue" image>
+                            Credits
+                            <Label.Detail>{props.currPlan.credits}</Label.Detail>
+                        </Label>
+                    </div>
+                </Segment>
+				<h3 className="status">Status: <span className={props.currPlan.schedules[props.currSchedule].status}>
+					&nbsp;&nbsp;&nbsp;{props.currPlan.schedules[props.currSchedule].status}</span>
+				</h3>
+                <div className="courses">
+                    <a className="planInfoCourses course">Courses:&nbsp;&nbsp;&nbsp;</a>
+                    {temp}
+                </div>
+                </Segment>
 			</div>
 			<Calendar/>
 
@@ -284,7 +341,7 @@ function RightDiv(props) {
 
 function Header(props){
     return(
-		<div className="header">
+		<div className="header1">
 			<div className="headerImage"></div>
 			<a className="header_title">UIUC Course Scheduler</a>
 			<NavBar OnClick={props.OnClick}/>
@@ -304,6 +361,9 @@ function Body(props){
 
 }
 
+function Footer(){
+    return(<div className="footer"></div>);
+}
 
 
 class ViewPlan extends Component{
@@ -352,6 +412,7 @@ class ViewPlan extends Component{
 				<Header OnClick={this.menuOnClick}/>
 				<Body OnChange={this.inputOnChange} currPlan={this.state.currPlan} ScheduleClick={this.scheduleOnClick}
 				currSchedule={this.state.currScheduleIndex}/>
+                <Footer/>
 			</div>
 		);
 	}

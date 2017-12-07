@@ -1,0 +1,31 @@
+body{
+    background-color: rgb(252, 251, 249);
+}
+
+.title1{
+    width: 530px;
+	height: 55px;
+    background-size: cover;
+	background-image: url("../../assets/title.png");
+    position: relative;
+    top: 35px;
+    left: 5px;
+}
+
+.logo{
+    width: 48px;
+	height: 48px;
+    background-size: cover;
+	background-image: url("../../assets/Picture1.png");
+    position: relative;
+    top: -17px;
+    left: 25px;
+}
+
+.ui.segment{
+    padding: 20px 15px;
+}
+
+.ui.teal.button, .ui.teal.buttons .button{
+    margin-top: 10px;
+}

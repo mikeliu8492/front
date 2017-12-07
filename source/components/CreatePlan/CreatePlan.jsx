@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { Image, List, Menu, Button, Input, Table, Message, Form, Label, Icon} from 'semantic-ui-react'
+import { Image, List, Menu, Button, Input, Table, Message, Form, Label, Icon, Card} from 'semantic-ui-react'
 import { Redirect, Link } from 'react-router-dom'
-
+import axios from "axios";
 import styles from './CreatePlan.scss'
 
 const createPlanStr = "Create Plan";
@@ -15,54 +15,52 @@ const active = true;
 const notActive = false;
 
 
-
-
 // the navigation menu
 function NavBar(props){
-	return(
-		<div className="navbarDiv">
+    return(
+        <div className="navbarDiv">
 
-			<Menu className="navbar" floated="right" inverted secondary>
-				<Menu.Item name={createPlanStr} active={active} onClick={props.OnClick} position="right">
-		          	{createPlanStr}
-		        </Menu.Item>
-		        <Menu.Item name={viewPlanStr} active={active} onClick={props.OnClick} position="right">
-		          	{viewPlanStr}
-		        </Menu.Item>
-		        <Menu.Item name={logOutStr} active={active} onClick={props.OnClick} position="right">
-		          	{logOutStr}
-		        </Menu.Item>
-			</Menu>
+            <Menu className="navbar" floated="right" inverted secondary>
+                <Menu.Item name={createPlanStr} active={active} onClick={props.OnClick} position="right">
+                    {createPlanStr}
+                </Menu.Item>
+                <Menu.Item name={viewPlanStr} active={active} onClick={props.OnClick} position="right">
+                    {viewPlanStr}
+                </Menu.Item>
+                <Menu.Item name={logOutStr} active={active} onClick={props.OnClick} position="right">
+                    {logOutStr}
+                </Menu.Item>
+            </Menu>
 
-		</div>
-	);
+        </div>
+    );
 }
 
 // logo + navigation bar
 // image will be replaced by Image
 function Header(props){
-	return(
-		<div className="header">
-			<div className="headerImage"></div>
+    return(
+        <div className="header1">
+            <div className="headerImage"></div>
             <a className="header_title">UIUC Course Scheduler</a>
-			<NavBar OnClick={props.OnClick}/>
-		</div>
-	);
+            <NavBar OnClick={props.OnClick}/>
+        </div>
+    );
 }
 
 // top left input field div
 function InputField(props){
-	return(
-		<div className="inputFieldDiv">
+    return(
+        <div className="inputFieldDiv">
             <h1 className="inputFieldTitle title">Look Up Course</h1>
-			<div className="inputField1">
-				<Input className="input"  label="&nbsp;&nbsp;Subject&nbsp;&nbsp;&nbsp;&nbsp;" color="blue" placeholder={subjectStr} name={subjectStr}
-				onChange={props.OnChange} />
-			</div>
-			<div className="inputField2">
-				<Input className="input" label="Course ID" placeholder={courseNumStr} name={courseNumStr}
-				onChange={props.OnChange} />
-			</div>
+            <div className="inputField1">
+                <Input className="input"  label="&nbsp;&nbsp;Subject&nbsp;&nbsp;&nbsp;&nbsp;" color="blue" placeholder={subjectStr} name={subjectStr}
+                onChange={props.OnChange} />
+            </div>
+            <div className="inputField2">
+                <Input className="input" label="Course ID" placeholder={courseNumStr} name={courseNumStr}
+                onChange={props.OnChange} />
+            </div>
 
             <div className="inputFieldMessage">
                 <Message size="big">
@@ -71,146 +69,217 @@ function InputField(props){
                     </div>
                 </Message>
             </div>
-		</div>
-	);
+        </div>
+    );
 }
 
 // inside the course list, the left subject list
 function LeftList(props){
-	let listItems = props.subjectList.map((element, index)=>{
-		return(
-			<li key={index} className="listItem">
-				{element}
-			</li>
-		);
-	})
+    let listItems = props.subjectList.map((element, index)=>{
+        let classes = "listItem";
+        if(element === props.state.currentSubject) classes += " selected";
+        return(
+            <li key={index} onClick={props.selectSubject} className={classes}>
+                {element}
+            </li>
+        );
+    })
 
-	return(
+    return(
 
             <ul className="leftList">
-			{listItems}
+            {listItems}
             </ul>
 
-	);
+    );
 }
 
 // inside the course list, the right subject list
 function RightList(props){
-	let listItems = props.courseList.map((element, index)=>{
-		return(
-            <List.Item key={index}>
-                <div className="rightItem">{element}</div>
-            </List.Item>
-		);
-	})
+    let listItems = props.courseList.map((element, index)=>{
+        let content = element.courseId + " : "  + element.courseName;
+        if(content.length > 50){
+             content = content.substring(0,50);
+             content = content + " ..."
+        }
+        let str_index = "" + index;
 
-	return(
+        return(
+            <List.Item key={index} onClick={props.selectCourse}>
+                <div name={str_index} className="rightItem">{content}</div>
+            </List.Item>
+        );
+    })
+
+    return(
         <div className="rightList">
-	        <List selection>
-			        {listItems}
+            <List selection>
+                    {listItems}
             </List>
         </div>
-	);
+    );
+}
+
+function CourseDetail(props){
+    if(props.state.currentCourse == ""){
+        return(<div></div>);
+    }
+
+    let course = props.state.currentCourse;
+    let credit = "";
+    if(course.creditInfo != undefined){
+        let len = course.creditInfo.length;
+        credit = course.creditInfo.substring(0,len-1);
+    }
+
+    return (
+        <div className="courseDetail">
+            <h2 className="courseId"> {course.courseId}</h2>
+            <h3 className="courseName"> {course.courseName}</h3>
+            <h3 className="creditInfo"> {credit}</h3>
+            <p  className="courseInfo">  {course.description} </p>
+            <div className="addCourseButton">
+                <Button onClick={props.addCourse} size="large" primary >Add to Plan</Button>
+            </div>
+        </div>
+
+    )
 }
 
 // bottom left course list
 function CourseList(props){
-	return(
-		<div className="courseListDiv">
+    return(
+        <div className="courseListDiv">
             <Table celled size="large" color="yellow">
                 <Table.Header>
                     <Table.Row>
                         <Table.HeaderCell>Subjects</Table.HeaderCell>
                         <Table.HeaderCell>Courses</Table.HeaderCell>
+                        <Table.HeaderCell>Course Detail</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
 
                 <Table.Body>
                     <Table.Row>
-                        <Table.Cell width="1"><LeftList subjectList={props.subjectList}/></Table.Cell>
-                        <Table.Cell><RightList courseList={props.courseList}/></Table.Cell>
+                        <Table.Cell width="1"><LeftList subjectList={props.subjectList} selectSubject={props.selectSubject} state={props.state}/></Table.Cell>
+                        <Table.Cell><RightList courseList={props.courseList} selectCourse={props.selectCourse}/></Table.Cell>
+                        <Table.Cell width="6"><CourseDetail addCourse={props.addCourse} state={props.state}/></Table.Cell>
                     </Table.Row>
                 </Table.Body>
             </Table>
-		</div>
-	);
+        </div>
+    );
 }
 
 function PlanInfo(props){
-	return(
-		<div className="planInfoDiv">
+    return(
+        <div className="planInfoDiv">
             <h1 className="planInfoTitle title">New Plan</h1>
             <div className="planName">
                 <h3 className="nameTag">Plan Name:</h3>
-                <Input className="nameInput" placeholder='' size="small" />
+                <Input onChange={props.planNameChange} className="nameInput" placeholder='' size="small" />
             </div>
             <div className="courseListTag">
                 <h3> Course List</h3>
                 <a className="credit"> total: {props.credit} credit</a>
             </div>
             <div className="courseList">
-                <AddList course={props.course}/>
+                <AddList course={props.course} deleteCourse={props.deleteCourse}/>
             </div>
             <div className="buttons">
                 <Button size="large" primary>Create Plan</Button>
-                <Button size="large" primary>Reset Plan</Button>
+                <Button onClick={props.clearCourse}  size="large" primary>Reset Plan</Button>
             </div>
-		</div>
-	);
+        </div>
+    );
 }
 
 function AddList(props){
-	let listItems = props.course.map((element, index)=>{
-		return(
-			<li key={index} className="addTag">
-			    <Label size="large" as='a' tag>
-                    {element}
-                </Label>
-			</li>
-		);
-	})
+    let listItems = props.course.map((element, index)=>{
 
-	return(
+        let show = element.courseId + " : " + element.courseName;
+        let str_index = "" + index;
+
+        return(
+            <li key={index} className="addTag">
+                <Label size="large" as='a' tag>
+                    {show}
+                    <a onClick={props.deleteCourse} name={str_index} className='delete'>x</a>
+                </Label>
+            </li>
+        );
+    })
+
+    return(
 
             <ul className="addList">
-			{listItems}
+            {listItems}
             </ul>
 
-	);
+    );
 }
 
 // wrapper for body
 function Body(props){
-	return(
-		<div className="bodyDiv">
-            <PlanInfo credit={props.credit} course={props.course}/>
-			<div className="bodyDivInnerRight">
-				<InputField OnChange={props.OnChange} />
-				<CourseList subjectList={props.subjectList} courseList={props.courseList}/>
-			</div>
+    return(
+        <div className="bodyDiv">
+            <PlanInfo credit={props.credit} course={props.course} deleteCourse={props.deleteCourse}
+                      clearCourse={props.clearCourse} planNameChange={props.planNameChange}/>
+            <div className="bodyDivInnerRight">
+                <InputField OnChange={props.OnChange} />
+                <CourseList subjectList={props.subjectList} courseList={props.courseList} addCourse={props.addCourse}
+                            selectSubject={props.selectSubject} state={props.state} selectCourse={props.selectCourse}/>
+            </div>
 
-		</div>
-	);
+        </div>
+    );
 
 }
+
+function Footer(){
+    return(<div className="footer"></div>);
+}
+
+
 
 
 class CreatePlan extends Component{
 	constructor(props){
 		super(props);
 		this.state = {
+            plan_name: "",
 			redirectStr: null,
 			inputSubject: "",
 			inputCourseNum: "",
-			subjectList: ["CS","CE","CEE","MATH","PHYS","PHIL"],
-			courseList: ["CS 357 	Numerical Methods I", "CS 374 Algorithms & Models of Computation", "CS 241 	System Programming", "CS 446 Machine Learning", "CS 440 Artificial Intelligence", "CS 411 Database System"],
-            course: ["CS 357 	Numerical Methods I", "CS 374 Algorithms & Models of Computation","MATH 415 Linear Algebra","CS 225 Data Structure"],
+            currentSubject:"",
+            currentCourse:"",
+            allSubject:["ACCY", "AE", "ANTH", "BADM", "BIOE",
+                        "CEE", "CHEM", "CS", "CSE", "ECE", "ECON", "ENGL", "FIN",
+                        "GEOL", "HIST", "IE", "MATH", "ME", "PHIL", "PHYS", "PSYC", "REL",
+                        "RHET", "STAT"],
+			subjectList: ["ACCY", "AE", "ANTH", "BADM", "BIOE",
+                        "CEE", "CHEM", "CS", "CSE", "ECE", "ECON", "ENGL", "FIN",
+                        "GEOL", "HIST", "IE", "MATH", "ME", "PHIL", "PHYS", "PSYC", "REL",
+                        "RHET", "STAT"],
+			courseList: [],
+            allcourseList: [],
+            course: [],
             credit: 12
         }
 
 		this.menuOnClick = this.menuOnClick.bind(this);
 		this.inputOnChange = this.inputOnChange.bind(this);
+        this.selectSubject = this.selectSubject.bind(this);
+        this.baseUrl       = "http://localhost:3000";
+        this.selectCourse  = this.selectCourse.bind(this);
+        this.addCourse     = this.addCourse.bind(this);
+        this.deleteCourse  = this.deleteCourse.bind(this);
+        this.clearCourse   = this.clearCourse.bind(this);
+        this.planNameChange = this.planNameChange.bind(this);
 	}
+
+
+
 
 	// header menu
 	menuOnClick(event, {name}){
@@ -222,16 +291,129 @@ class CreatePlan extends Component{
 	// input field
 	inputOnChange(event, {name}){
 		if(name == subjectStr){
+            let text = event.target.value;
 			this.setState({inputSubject: event.target.value}, ()=>{
-				console.log("inputSubject: " + this.state.inputSubject);
-			})
+                this.setState({
+                    courseList: []
+                })
+			});
+
+            let result=[]
+            this.state.allSubject.map((subject,index) => {
+                if(subject.indexOf(text.toUpperCase()) == 0) result.push(subject)
+            });
+            this.setState({
+                subjectList: result,
+                currentSubject: result[0]
+            });
+
+            let url = this.baseUrl + "/courses/" + result[0]
+            axios.get(url).then(res => {
+                this.setState({
+                    allcourseList: res.data.data,
+                });
+
+                let text = this.state.inputCourseNum;
+
+                let result=[];
+                this.state.allcourseList.map((course,index) => {
+                    let len = course.courseId.length
+                    let num = course.courseId.substring(len-3,len);
+                    if(num.indexOf(text) == 0) result.push(course);
+                });
+                this.setState({
+                    courseList: result
+                });
+            });
+
 		}
 		if(name == courseNumStr){
 			this.setState({inputCourseNum: event.target.value}, ()=>{
-				console.log("inputCourseNum: " + this.state.inputCourseNum);
+
 			})
+
+            let text = event.target.value;
+
+            let result=[];
+            this.state.allcourseList.map((course,index) => {
+                let len = course.courseId.length
+                let num = course.courseId.substring(len-3,len);
+                if(num.indexOf(text) == 0) result.push(course);
+            });
+            this.setState({
+                courseList: result
+            });
+
 		}
+
 	}
+
+    planNameChange(event){
+        this.setState({inputCourseNum: event.target.value});
+    }
+
+    selectSubject(event){
+        this.setState({
+            currentSubject: event.target.textContent
+        })
+        let url = this.baseUrl + "/courses/" + event.target.textContent
+        axios.get(url).then(res => {
+            this.setState({
+                allcourseList: res.data.data,
+            });
+
+            let text = this.state.inputCourseNum;
+
+            let result=[];
+            this.state.allcourseList.map((course,index) => {
+                let len = course.courseId.length
+                let num = course.courseId.substring(len-3,len);
+                if(num.indexOf(text) == 0) result.push(course);
+            });
+
+            this.setState({
+                courseList: result
+            });
+        });
+    }
+
+    selectCourse(event){
+        if(event.target.attributes.name == undefined) return;
+        let index = event.target.attributes.name.value;
+        let courseId = this.state.courseList[index].courseId;
+        let len = this.state.courseList[index].courseId.length;
+        let url = this.baseUrl + "/courses/" + courseId.substring(0,len-4)+"/"+courseId.substring(len-3,len);
+        axios.get(url).then(res => {
+            this.setState({
+                currentCourse: res.data.data
+            })
+        });
+    }
+
+    addCourse(event){
+        let course = this.state.currentCourse;
+        let arr = this.state.course;
+        if (arr.includes(course)) return;
+        arr.push(course);
+        this.setState({
+            course: arr
+        });
+    }
+
+    deleteCourse(event){
+        let index = event.target.attributes.name.value;
+        let arr = this.state.course;
+        arr.splice(index,1);
+        this.setState({
+            course: arr
+        });
+    }
+
+    clearCourse(event){
+        this.setState({
+            course:[]
+        });
+    }
 
 	render(){
 		if(this.state.redirectStr === createPlanStr){
@@ -248,7 +430,11 @@ class CreatePlan extends Component{
 			<div>
 				<Header OnClick={this.menuOnClick}/>
 				<Body OnChange={this.inputOnChange} subjectList={this.state.subjectList}
-				courseList={this.state.courseList} course={this.state.course} credit={this.state.credit}/>
+                      selectSubject={this.selectSubject} selectCourse={this.selectCourse}
+                      deleteCourse={this.deleteCourse} courseList={this.state.courseList}
+                      course={this.state.course} credit={this.state.credit} state={this.state}
+                      addCourse={this.addCourse} clearCourse={this.clearCourse} planNameChange={this.planNameChange}/>
+                <Footer/>
 			</div>
 		);
 	}

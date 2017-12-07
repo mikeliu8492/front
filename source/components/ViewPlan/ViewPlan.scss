@@ -2,7 +2,11 @@
   padding: 6px;
 }
 
-.header{
+body{
+    overflow:hidden;
+}
+
+.header1{
   position: relative;
   width: 100%;
   height: 52px;
@@ -50,10 +54,10 @@
 .leftDiv{
   position: relative;
   float: right;
-  width: 30%;
-  height:1000px;
+  width: 25%;
+  height:850px;
   background-color: rgb(252, 251, 249);
-  box-shadow: 3px 0px 3px #ccc;
+  box-shadow: 2px 0px 2px #ccc;
   z-index: 2;
   text-align: center;
 
@@ -62,12 +66,12 @@
   }
 
   .inputContainer{
+    z-index: 2;
     position:relative;
-    margin-top: 10px;
     height: 50px;
     width: 100%;
     background-color: rgb(250,250,250);
-    border-top: 1px solid rgb(200,200,200);
+    border-top: 4px solid rgb(200,200,200);
     border-bottom: 2px solid rgb(200,200,200);
 
 
@@ -85,7 +89,7 @@
       position: absolute;
       top:50%;
       transform:translate(0,-50%);
-      left: 150px;
+      left: 130px;
     }
   }
   .scheduleLabel{
@@ -97,22 +101,76 @@
     border-bottom: 1px solid rgb(200,200,200);
     border-top: 2px solid rgb(244, 161, 0);
   }
+
   .scheduleList{
-    .scheduleItem{
-      text-align:left;
-      height: 50px;
-    }
+
+    margin: 0px;
+    z-index: -2;
+    padding:  13px 5px 0px 5px;
+    height: 700px;
+    background-color: rgb(252, 251, 249);
+
   }
+
+  .card_in{
+      position: absolute;
+      text-align: left;
+      width: 100%;
+
+      .schedule_name{
+          color: #666;
+          font-weight: bold;
+          font-size: 1.5em;
+      }
+    }
+
+    .ui.cards{
+         position: static;
+    }
+
+
+    .ui.cards>.card{
+      position: relative;
+      margin-bottom: 0px;
+      background-color: rgb(252,252,255);
+    }
+
+    .ui.cards>.favourate{
+        background-color: rgb(255, 249, 163);
+    }
+
+    .ui.cards>.favourate:hover{
+        background-color: rgb(255, 249, 163);
+    }
+
+
+  .available_tag{
+      position: absolute;
+      right: -6px;
+      top: 8px;
+
+      .ui.button{
+         padding: 6.5px;
+      }
+  }
+
+
 
 }
 
 .rightDiv{
-  width:70%;
-  height:1000px;
+  width:75%;
+  height:850px;
   align-items: center;
   background-color: rgb(252, 251, 249);
   box-shadow: 3px 0px 3px #ccc;
   border: 1px solid rgb(200, 200, 200);
+
+  .main_title{
+      display: inline-block;
+      margin: 0px;
+      padding: 0px 0px 0px 10px;
+  }
 
   .planInfoContainer{
     height:200px;
@@ -124,30 +182,76 @@
       display:inline-block;
       padding:3% 2%;
     }
-    .planInfoCourses{
-      display:inline-block;
-      padding:3% 1%;
-    }
+
 
   }
+
+  .planInfoCourses{
+     display:inline-block;
+     font-size: 1.3em;
+     color: #aaa;
+  }
+
+  .ui.segment{
+      padding: 5px 10px;
+  }
+
+  .labels{
+      position: absolute;
+      top: 7px;
+      right: 5px;
+  }
+
+  .status{
+      margin: 15px 15px 10px 20px;
+  }
+
+  .course{
+      font-weight: bold;
+      color: black;
+  }
+
+  .courses{
+      color: black;
+      position: absolute;
+      top: 68px;
+      right: 15px;
+  }
+
+  .current_schedule{
+      font-size: 1.4em;
+      margin-left: 30px;
+      color: black;
+  }
+
   .scheduleNameLabel{
     text-align: left;
-    padding: 10px 19px;
+    padding: 10px;
     background-color: rgb(245,245,245);
     border-bottom: 1px solid rgb(200,200,200);
     border-top: 2px solid rgb(244, 161, 0);
     .available{
-      color:green;
+        font-weight: normal;
+        color:green;
     }
     .unavailable{
-      color:red;
+        font-weight: normal;
+        color:red;
     }
   }
   .calendar{
-    box-shadow: 3px 0px 3px #ccc;
+    box-shadow: 3px 0px -3px #ccc;
     border: 1px solid rgb(200, 200, 200);
-    margin: 30px;
-    height:500px;
+    margin: 10px;
+    height:650px;
+    background-color: white;
   }
+
+}
+
+.footer{
+    width:100%;
+    height: 160px;
+    background-color: rgb(80, 80, 80);
 
 }
