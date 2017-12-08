@@ -187,7 +187,7 @@ function PlanInfo(props){
                 <AddList course={props.course} deleteCourse={props.deleteCourse}/>
             </div>
             <div className="buttons">
-                <Button size="large" primary>Create Plan</Button>
+                <Button onClick={props.createPlan}   size="large" primary>Create Plan</Button>
                 <Button onClick={props.clearCourse}  size="large" primary>Reset Plan</Button>
             </div>
         </div>
@@ -224,7 +224,7 @@ function Body(props){
     return(
         <div className="bodyDiv">
             <PlanInfo credit={props.credit} course={props.course} deleteCourse={props.deleteCourse}
-                      clearCourse={props.clearCourse} planNameChange={props.planNameChange}/>
+                      clearCourse={props.clearCourse} planNameChange={props.planNameChange} createPlan={props.createPlan}/>
             <div className="bodyDivInnerRight">
                 <InputField OnChange={props.OnChange} />
                 <CourseList subjectList={props.subjectList} courseList={props.courseList} addCourse={props.addCourse}
@@ -276,6 +276,7 @@ class CreatePlan extends Component{
         this.deleteCourse  = this.deleteCourse.bind(this);
         this.clearCourse   = this.clearCourse.bind(this);
         this.planNameChange = this.planNameChange.bind(this);
+        this.createPlan     = this.createPlan.bind(this);
 	}
 
 
@@ -415,6 +416,18 @@ class CreatePlan extends Component{
         });
     }
 
+    createPlan(event){
+        let url = this.baseUrl + "/users/plan";
+        let send = {
+            "name" : this.state.plan_name,
+            "password" : this.state.course
+        }
+        console.log(send);
+        axios.post(url,send).then(response => {
+                        console.log()
+                    });
+    }
+
 	render(){
 		if(this.state.redirectStr === createPlanStr){
 			console.log("Refresh create");
@@ -433,7 +446,8 @@ class CreatePlan extends Component{
                       selectSubject={this.selectSubject} selectCourse={this.selectCourse}
                       deleteCourse={this.deleteCourse} courseList={this.state.courseList}
                       course={this.state.course} credit={this.state.credit} state={this.state}
-                      addCourse={this.addCourse} clearCourse={this.clearCourse} planNameChange={this.planNameChange}/>
+                      addCourse={this.addCourse} clearCourse={this.clearCourse} planNameChange={this.planNameChange}
+                      createPlan={this.createPlan}/>
                 <Footer/>
 			</div>
 		);
