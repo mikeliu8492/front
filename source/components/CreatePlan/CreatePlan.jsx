@@ -420,7 +420,7 @@ class CreatePlan extends Component{
         let url = this.baseUrl + "/users/plan";
         let send = {
             "name" : this.state.plan_name,
-            "password" : this.state.course
+            "courses" : this.state.course
         }
         console.log(send);
         axios.post(url,send).then(response => {
