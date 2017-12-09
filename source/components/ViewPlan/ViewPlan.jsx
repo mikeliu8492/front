@@ -11,6 +11,316 @@ const logOutStr = "Log Out";
 const active = true;
 
 //-----For Testing------------
+
+const courses = [
+
+    {
+        "courseId": "CS 374",
+        "courseName": "Introduction to Algorithms & Models of Computation",
+        "creditInfo": "4 hours.",
+        "description": "Analysis of algorithms, major paradigms of algorithm design including recursive algorithms, divide-and-conquer algorithms, dynamic programming, greedy algorithms, and graph algorithms. Formal models of computation including finite automata and Turing machines. Limitations of computation arising from fundamental notions of algorithm and from complexity-theoretic constraints. Reductions, undecidability and NP-completeness. Same as ECE 374. Prerequisite: CS 225; MATH 225 or MATH 415.",
+        "sections": [
+            {
+                "crn": "65088",
+                "sectionId": "AL1",
+                "type": "LEC",
+                "days": "TR",
+                "start": "11:00",
+                "end": "12:15"
+            },
+            {
+                "crn": "65089",
+                "sectionId": "AYA",
+                "type": "DIS",
+                "days": "WF",
+                "start": "09:00",
+                "end": "09:50"
+            },
+            {
+                "crn": "65090",
+                "sectionId": "AYB",
+                "type": "DIS",
+                "days": "WF",
+                "start": "10:00",
+                "end": "10:50"
+            },
+            {
+                "crn": "65091",
+                "sectionId": "AYC",
+                "type": "DIS",
+                "days": "WF",
+                "start": "11:00",
+                "end": "11:50"
+            },
+            {
+                "crn": "65092",
+                "sectionId": "AYD",
+                "type": "DIS",
+                "days": "WF",
+                "start": "12:00",
+                "end": "12:50"
+            },
+            {
+                "crn": "65093",
+                "sectionId": "AYE",
+                "type": "DIS",
+                "days": "WF",
+                "start": "13:00",
+                "end": "13:50"
+            },
+            {
+                "crn": "65094",
+                "sectionId": "AYF",
+                "type": "DIS",
+                "days": "WF",
+                "start": "14:00",
+                "end": "14:50"
+            },
+            {
+                "crn": "65095",
+                "sectionId": "AYG",
+                "type": "DIS",
+                "days": "WF",
+                "start": "15:00",
+                "end": "15:50"
+            },
+            {
+                "crn": "65096",
+                "sectionId": "AYH",
+                "type": "DIS",
+                "days": "WF",
+                "start": "16:00",
+                "end": "16:50"
+            },
+            {
+                "crn": "65097",
+                "sectionId": "AYJ",
+                "type": "DIS",
+                "days": "WF",
+                "start": "13:00",
+                "end": "13:50"
+            },
+            {
+                "crn": "65098",
+                "sectionId": "AYK",
+                "type": "DIS",
+                "days": "WF",
+                "start": "14:00",
+                "end": "14:50"
+            },
+            {
+                "crn": "67005",
+                "sectionId": "BL1",
+                "type": "LEC",
+                "days": "TR",
+                "start": "11:00",
+                "end": "12:15"
+            },
+            {
+                "crn": "67949",
+                "sectionId": "BYA",
+                "type": "DIS",
+                "days": "WF",
+                "start": "09:00",
+                "end": "09:50"
+            },
+            {
+                "crn": "67951",
+                "sectionId": "BYB",
+                "type": "DIS",
+                "days": "WF",
+                "start": "10:00",
+                "end": "10:50"
+            },
+            {
+                "crn": "67953",
+                "sectionId": "BYC",
+                "type": "DIS",
+                "days": "WF",
+                "start": "13:00",
+                "end": "13:50"
+            },
+            {
+                "crn": "67955",
+                "sectionId": "BYD",
+                "type": "DIS",
+                "days": "WF",
+                "start": "14:00",
+                "end": "14:50"
+            },
+            {
+                "crn": "67957",
+                "sectionId": "BYE",
+                "type": "DIS",
+                "days": "WF",
+                "start": "15:00",
+                "end": "15:50"
+            },
+            {
+                "crn": "67959",
+                "sectionId": "BYF",
+                "type": "DIS",
+                "days": "WF",
+                "start": "16:00",
+                "end": "16:50"
+            },
+            {
+                "crn": "67961",
+                "sectionId": "BYG",
+                "type": "DIS",
+                "days": "WF",
+                "start": "15:00",
+                "end": "15:50"
+            },
+            {
+                "crn": "67963",
+                "sectionId": "BYH",
+                "type": "DIS",
+                "days": "WF",
+                "start": "16:00",
+                "end": "16:50"
+            }
+        ]
+    },
+    {
+        "courseId": "CS 421",
+        "courseName": "Progrmg Languages & Compilers",
+        "creditInfo": "3 OR 4 hours.",
+        "description": "Structure of programming languages and their implementation. Basic language design principles; abstract data types; functional languages; type systems; object-oriented languages. Basics of lexing, parsing, syntax-directed translation, semantic analysis, and code generation. 3 undergraduate hours. 3 or 4 graduate hours. Prerequisite: CS 233 and CS 373.",
+        "sections": [
+            {
+                "crn": "31375",
+                "sectionId": "B3",
+                "type": "LEC",
+                "days": "TR",
+                "start": "17:00",
+                "end": "18:15"
+            },
+            {
+                "crn": "31376",
+                "sectionId": "B4",
+                "type": "LEC",
+                "days": "TR",
+                "start": "17:00",
+                "end": "18:15"
+            },
+            {
+                "crn": "63756",
+                "sectionId": "C3",
+                "type": "LEC",
+                "days": "TR",
+                "start": "15:30",
+                "end": "16:45"
+            },
+            {
+                "crn": "63757",
+                "sectionId": "C4",
+                "type": "LEC",
+                "days": "TR",
+                "start": "15:30",
+                "end": "16:45"
+            }
+        ]
+    },
+    {
+        "courseId": "CS 411",
+        "courseName": "Database Systems",
+        "creditInfo": "3 OR 4 hours.",
+        "description": "Examination of the logical organization of databases: the entity-relationship model; the hierarchical, network, and relational data models and their languages. Functional dependencies and normal forms. Design, implementation, and optimization of query languages; security and integrity; concurrency control, and distributed database systems. 3 undergraduate hours. 3 or 4 graduate hours. Prerequisite: CS 225.",
+        "sections": [
+            {
+                "crn": "31352",
+                "sectionId": "N3",
+                "type": "LEC",
+                "days": "MW",
+                "start": "08:00",
+                "end": "09:15"
+            },
+            {
+                "crn": "31355",
+                "sectionId": "N4",
+                "type": "LEC",
+                "days": "MW",
+                "start": "08:00",
+                "end": "09:15"
+            }
+        ]
+    },
+    {
+        "courseId": "CS 431",
+        "courseName": "Embedded Systems",
+        "creditInfo": "3 or 4 hours.",
+        "description": "A survey of sampled data systems and embedded architecture; key concepts in common embedded system applications; signal processing and control; embedded microprocessor and device interface; time-critical I/O handling; data communications; real-time operating systems and techniques for the development and analysis of embedded real-time software; hands-on laboratory projects. 3 undergraduate hours. 3 or 4 graduate hours. Prerequisite: CS 241 or ECE 391.",
+        "sections": [
+            {
+                "crn": "31398",
+                "sectionId": "AB1",
+                "type": "LAB",
+                "days": "W",
+                "start": "15:00",
+                "end": "16:50"
+            },
+            {
+                "crn": "31401",
+                "sectionId": "AB2",
+                "type": "LAB",
+                "days": "W",
+                "start": "17:00",
+                "end": "18:50"
+            },
+            {
+                "crn": "31399",
+                "sectionId": "AB3",
+                "type": "LAB",
+                "days": "R",
+                "start": "17:00",
+                "end": "18:50"
+            },
+            {
+                "crn": "31393",
+                "sectionId": "AL3",
+                "type": "LEC",
+                "days": "TR",
+                "start": "12:30",
+                "end": "13:45"
+            },
+            {
+                "crn": "31396",
+                "sectionId": "AL4",
+                "type": "LEC",
+                "days": "TR",
+                "start": "12:30",
+                "end": "13:45"
+            }
+        ]
+    },
+    {
+        "courseId": "CS 423",
+        "courseName": "Operating Systems Design",
+        "creditInfo": "3 OR 4 hours.",
+        "description": "Organization and structure of modern operating systems and concurrent programming concepts. Deadlock, virtual memory, processor scheduling, and disk systems. Performance, security, and protection. Same as CSE 423. 3 undergraduate hours. 3 or 4 graduate hours. Prerequisite: CS 241 or ECE 391.",
+        "sections": [
+            {
+                "crn": "31378",
+                "sectionId": "C3",
+                "type": "LEC",
+                "days": "MWF",
+                "start": "11:00",
+                "end": "11:50"
+            },
+            {
+                "crn": "31379",
+                "sectionId": "C4",
+                "type": "LEC",
+                "days": "MWF",
+                "start": "11:00",
+                "end": "11:50"
+            }
+        ]
+    }
+
+]
+
 const plan1 = {
     name: "Plan 1",
     semester: "Spring 2018",
@@ -514,10 +824,16 @@ class ViewPlan extends Component{
         this.baseUrl = "http://localhost:3000";
 
 	}
+
+
+
     inputOnChange(event, data){
         this.setState({currPlan:data['value']},()=>{
             console.log("currPlan: " + this.state.currPlan)});
+
+        console.log("1");
     }
+
 
     menuOnClick(event, {name}){
         this.setState({redirectStr: name}, ()=>{

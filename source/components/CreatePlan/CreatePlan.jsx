@@ -350,7 +350,7 @@ class CreatePlan extends Component{
 	}
 
     planNameChange(event){
-        this.setState({inputCourseNum: event.target.value});
+        this.setState({plan_name: event.target.value});
     }
 
     selectSubject(event){
