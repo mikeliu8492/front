@@ -10,10 +10,6 @@ const logOutStr = "Log Out";
 
 const active = true;
 
-//-----For Testing------------
-
-const dict = {}
-
 const courses = [
 
     {
@@ -323,6 +319,7 @@ const courses = [
 
 ]
 
+//-----For Testing------------
 const plan1 = {
     name: "Plan 1",
     semester: "Spring 2018",
@@ -501,10 +498,36 @@ const plan2 = {
 
     ]
 
-}
+};
+const plan = {"name": "Plan 1",
+    courses:['CS421, CS411, CS431, CS423, CS374'],
+    schedules:[
+    '31375;31352;31393;31378;65088;;;;;65090;;;31398;;;',
+    '63756;31352;31393;31378;65088;;;;;65090;;;31398;;;',
+    '31375;31352;31393;31378;65088;;;;;65092;;;31398;;;',
+    '31375;31352;31393;31378;65088;;;;;65093;;;31398;;;',
+    '31375;31352;31393;31378;65088;;;;;65094;;;31398;;;',
+    '31375;31352;31393;31378;65088;;;;;65095;;;31401;;;',
+    '31375;31352;31393;31378;65088;;;;;65096;;;31401;;;',
+    '63756;31352;31393;31378;65088;;;;;65092;;;31398;;;',
+    '63756;31352;31393;31378;65088;;;;;65093;;;31398;;;',
+    '63756;31352;31393;31378;65088;;;;;65094;;;31398;;;',
+    '63756;31352;31393;31378;65088;;;;;65095;;;31401;;;',
+    '63756;31352;31393;31378;65088;;;;;65096;;;31401;;;',
+    '31375;31352;31393;31378;65088;;;;;65090;;;31401;;;',
+    '63756;31352;31393;31378;65088;;;;;65090;;;31401;;;',
+    '31375;31352;31393;31378;65088;;;;;65092;;;31401;;;',
+    '31375;31352;31393;31378;65088;;;;;65093;;;31401;;;',
+    '31375;31352;31393;31378;65088;;;;;65094;;;31401;;;',
+    '63756;31352;31393;31378;65088;;;;;65092;;;31401;;;',
+    '63756;31352;31393;31378;65088;;;;;65093;;;31401;;;',
+    '63756;31352;31393;31378;65088;;;;;65094;;;31401;;;' ]}
+
+const d = {};
+
+
 const options = [
-    {key:1, text: "Plan1", value: plan1},
-	{key:2, text: "Plan2", value: plan2}
+    {key:1, text: plan.name, value: plan}
 ]
 const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
 const times = ["8 am", "9 am", "10 am", "11 am", "12 pm", "1 pm", "2 pm", "3 pm", "4 pm", "5 pm", "6 pm"]
@@ -541,7 +564,9 @@ function Get_button(props){
 function ScheduleList(props){
 	let temp      = "";
     let favourate = "";
+
 	if(props.currPlan != null){
+	    /*
         favourate = props.currPlan.schedules.map((element, index)=>{
             if(props.currPlan.favourate === element.name)
             return(
@@ -555,23 +580,22 @@ function ScheduleList(props){
                         </div>
                     </Card.Content>
                     <Card.Content extra>
-
                     </Card.Content>
                </Card>
             )
-        });
+        });**/
 
         temp = props.currPlan.schedules.map((element, index)=>{
-            if(props.currPlan.favourate !== element.name)
+            //if(props.currPlan.favourate !== element.name)
             return(
 
                 <Card centered key={index} name={index} onClick={props.ScheduleClick}>
                     <Card.Content>
                         <div className="card_in">
-                            <h3 className="schedule_name">{element.name}</h3>
+                            <h3 className="schedule_name">Schedule + {index}</h3>
                         </div>
                         <div className="available_tag">
-                            <Get_button status={element.status}/>
+                            <Get_button status="available"/>
                         </div>
                     </Card.Content>
                     <Card.Content extra>
@@ -610,6 +634,7 @@ function LeftDiv(props){
 				<ScheduleList currPlan={props.currPlan} currSchedule={props.currSchedule}
 							  ScheduleClick={props.ScheduleClick}/>
 			</div>
+            <div className="scheduleListUnder"></div>
 		</div>
 	)
 
@@ -619,46 +644,66 @@ function LeftDiv(props){
 function ScheduleBlock(props){
     let double = false;
     let blocks = days.map((element,index)=>{
-        let i = 0
-        for(i=0; i<props.currPlan.schedules[props.currSchedule].sections.length; i++){                  //loop over the sections for the plan
+        let i = 0;
+        let schedule = props.currPlan.schedules[props.currSchedule].split(";");
+        for(i=0; i<schedule.length; i++){                  //loop over the sections for the schedule
+            if(schedule[i] === ""){
+                continue;
+            }
 
+            let info = d[schedule[i]];
             //-------parsing the times
-            let startTime = props.currPlan.schedules[props.currSchedule].sections[i].start.split(" ");
-            let endTime = props.currPlan.schedules[props.currSchedule].sections[i].end.split(" ");
-            let pTime = props.time.split(" ");
-            let startHour = startTime[0].split(":");
-            if(startTime[1] == "pm") {
-                startHour[0] = Number(startHour[0]) + 12
+            let sDays = info.days.split('');
+            let j = 0
+            for(j = 0; j<sDays.length;j++){
+                if(sDays[j] == 'M'){
+                    sDays[j] = 'Monday'
+                }
+                else if(sDays[j] == 'T'){
+                    sDays[j] = 'Tuesday'
+                }
+                else if(sDays[j] == 'W'){
+                    sDays[j] = 'Wednesday'
+                }
+                else if(sDays[j] == 'R'){
+                    sDays[j] = 'Thursday'
+                }
+                else if(sDays[j] == 'F'){
+                    sDays[j] = 'Friday'
+                }
             }
-            let endHour = endTime[0].split(":");
-            if(endTime[1] == "pm"){
-                endHour[0] = Number(endHour[0]) + 12
-
-            }
-            if(pTime[1] == "pm"){
-                pTime[0] = Number(pTime[0])+12
+            let startTime = info.start.split(':');
+            let endTime = info.end.split(':');
+            let currTime = props.time.split(" ");
+            let startH = Number(startTime[0]);
+            let endH = Number(endTime[0]);
+            if(currTime[1] == 'PM'){
+                currTime[0] = Number(currTime[0])+12;
             }
             //----------------
-
-            if(startHour[0] == pTime[0]){           //check if any sections have a start time matching the current row
-                if(props.currPlan.schedules[props.currSchedule].sections[i].days.indexOf(element) > -1){//if time matches, check which day
-                    if(endHour[0] > pTime[0])   // if longer than an hour, make the block two rows
+            //console.log(startH)
+            //console.log(currTime[0]);
+            if(startH == currTime[0]){           //check if any sections have a start time matching the current row
+                console.log(sDays);
+                if(sDays.indexOf(element) > -1){//if time matches, check which day
+                    console.log("match2");
+                    if(endH > currTime[0])   // if longer than an hour, make the block two rows
                     {
                         return(
                             <Table.Cell active rowSpan='2' key={props.time + element}>
 
-                                <p>{props.currPlan.schedules[props.currSchedule].sections[i].name}</p>
-                                <p>{props.currPlan.schedules[props.currSchedule].sections[i].start}-
-                                    {props.currPlan.schedules[props.currSchedule].sections[i].end}</p>
+                                <p>{info.sectionId}</p>
+                                <p>{info.start}-
+                                    {info.end}</p>
                             </Table.Cell>
                         )
                     }
                     else{
                         return(
                             <Table.Cell active rowSpan='1' key={props.time + element}>
-                                <p>{props.currPlan.schedules[props.currSchedule].sections[i].name}</p>
-                                <p>{props.currPlan.schedules[props.currSchedule].sections[i].start}-
-                                    {props.currPlan.schedules[props.currSchedule].sections[i].end}</p>
+                                <p>{info.sectionId}</p>
+                                <p>{info.start}-
+                                    {info.end}</p>
 
                             </Table.Cell>
                         )
@@ -670,8 +715,9 @@ function ScheduleBlock(props){
 
             }
             //check if the block is two rows so we can avoid adding a block in that spot
-            else if(endHour[0] == pTime[0] && startHour[0] < pTime[0]){
-                if(props.currPlan.schedules[props.currSchedule].sections[i].days.indexOf(element) > -1) {
+            else if(endH == currTime[0] && startH < currTime[0]){
+                console.log("skipping row");
+                if(sDays.indexOf(element) > -1) {
                     return;
                 }
             }
@@ -817,8 +863,10 @@ class ViewPlan extends Component{
 		super(props);
 		this.state={
 			redirectStr:null,
-			currPlan:plan1,
-			currScheduleIndex:0
+			currPlan:plan,
+			currScheduleIndex:0,
+            dict:d
+
 		};
         this.menuOnClick = this.menuOnClick.bind(this);
         this.inputOnChange = this.inputOnChange.bind(this);
@@ -829,22 +877,20 @@ class ViewPlan extends Component{
 
     componentWillMount(){
 
-        courses.map((course,index) => {
-            course.sections.map((section,index) => {
-                dict[section.crn]= section;
-            });
-        });
+          courses.map((course,index) => {
+              course.sections.map((section,index) => {
+                  d[section.crn]= section;
+              });
+          });
 
-        console.log(dict);
-        
-    }
+          console.log(d);
+
+      }
 
     inputOnChange(event, data){
         this.setState({currPlan:data['value']},()=>{
             console.log("currPlan: " + this.state.currPlan)});
-
     }
-
 
     menuOnClick(event, {name}){
         this.setState({redirectStr: name}, ()=>{
@@ -867,7 +913,6 @@ class ViewPlan extends Component{
             window.location.reload();
             this.setState({redirectStr: null});
         }
-
 
 		return (
 			<div>

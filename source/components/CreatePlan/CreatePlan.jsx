@@ -264,7 +264,7 @@ class CreatePlan extends Component{
 			courseList: [],
             allcourseList: [],
             course: [],
-            credit: 12
+            credit: 0
         }
 
 		this.menuOnClick = this.menuOnClick.bind(this);
@@ -396,17 +396,21 @@ class CreatePlan extends Component{
         let arr = this.state.course;
         if (arr.includes(course)) return;
         arr.push(course);
+        let credit = this.state.credit + parseInt(this.state.currentCourse.creditInfo.substring(0,1));
         this.setState({
-            course: arr
+            course: arr,
+            credit: credit
         });
     }
 
     deleteCourse(event){
         let index = event.target.attributes.name.value;
         let arr = this.state.course;
+        let credit = this.state.credit - parseInt(this.state.course[index].creditInfo.substring(0,1));
         arr.splice(index,1);
         this.setState({
-            course: arr
+            credit : credit, 
+            course : arr
         });
     }
 
