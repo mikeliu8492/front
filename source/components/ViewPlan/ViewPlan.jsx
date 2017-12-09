@@ -309,6 +309,8 @@ function ScheduleBlock(props){
     let blocks = days.map((element,index)=>{
         let i = 0
         for(i=0; i<props.currPlan.schedules[props.currSchedule].sections.length; i++){                  //loop over the sections for the plan
+
+            //-------parsing the times
             let startTime = props.currPlan.schedules[props.currSchedule].sections[i].start.split(" ");
             let endTime = props.currPlan.schedules[props.currSchedule].sections[i].end.split(" ");
             let pTime = props.time.split(" ");
@@ -324,10 +326,11 @@ function ScheduleBlock(props){
             if(pTime[1] == "pm"){
                 pTime[0] = Number(pTime[0])+12
             }
+            //----------------
 
             if(startHour[0] == pTime[0]){           //check if any sections have a start time matching the current row
                 if(props.currPlan.schedules[props.currSchedule].sections[i].days.indexOf(element) > -1){//if time matches, check which day
-                    if(endHour[0] > pTime[0])
+                    if(endHour[0] > pTime[0])   // if longer than an hour, make the block two rows
                     {
                         return(
                             <Table.Cell active rowSpan='2' key={props.time + element}>
@@ -354,6 +357,7 @@ function ScheduleBlock(props){
                 }
 
             }
+            //check if the block is two rows so we can avoid adding a block in that spot
             else if(endHour[0] == pTime[0] && startHour[0] < pTime[0]){
                 if(props.currPlan.schedules[props.currSchedule].sections[i].days.indexOf(element) > -1) {
                     return;
