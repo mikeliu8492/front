@@ -12,6 +12,8 @@ const active = true;
 
 //-----For Testing------------
 
+const dict = {}
+
 const courses = [
 
     {
@@ -825,13 +827,22 @@ class ViewPlan extends Component{
 
 	}
 
+    componentWillMount(){
 
+        courses.map((course,index) => {
+            course.sections.map((section,index) => {
+                dict[section.crn]= section;
+            });
+        });
+
+        console.log(dict);
+        
+    }
 
     inputOnChange(event, data){
         this.setState({currPlan:data['value']},()=>{
             console.log("currPlan: " + this.state.currPlan)});
 
-        console.log("1");
     }
 
 
