@@ -320,185 +320,7 @@ const courses = [
 ]
 
 //-----For Testing------------
-const plan1 = {
-    name: "Plan 1",
-    semester: "Spring 2018",
-    courses:["CS 374", "CS 498", "CS 440", "CS 225"],
-	credits: "13",
-    favourate:"Schedule 1_1",
-	schedules:[
-		{
-			name: "Schedule 1",
-			status:"available",
-			sections:[
-                {
-                    name:"CS 374",
-                    code:"AL1",
-                    days:["Monday", "Wednesday", "Friday"],
-                    type:"LEC",
-                    start:"10:00 am",
-                    end:"10:50 am"
-                },
-                {
-                    name:"CS 498",
-                    code:"AL1",
-                    days:["Monday", "Wednesday", "Friday"],
-                    type:"LEC",
-                    start:"1:00 pm",
-                    end:"1:50 pm"
-                },
-                {
-                    name:"CS 440",
-                    code:"AL1",
-                    days:["Tuesday", "Thursday"],
-                    type:"LEC",
-                    start:"3:30 pm",
-                    end:"4:45 pm"
-                },
-                {
-                    name:"CS 225",
-                    code:"AL1",
-                    days:["Tuesday", "Thursday"],
-                    type:"LEC",
-                    start:"11:00 am",
-                    end:"11:50 am",
-                }
 
-
-            ]
-		},
-		{
-            name: "Schedule 2",
-			status: "unavailable",
-            sections:[
-                {
-                    name:"CS 374",
-                    code:"AL1",
-                    days:["Tuesday", "Thursday"],
-                    type:"LEC",
-                    start:"11:00 am",
-                    end:"11:50 am"
-                },
-                {
-                    name:"CS 498",
-                    code:"AL1",
-                    days:["Tuesday", "Thursday"],
-                    type:"LEC",
-                    start:"2:00 pm",
-                    end:"2:50 pm"
-                },
-                {
-                    name:"CS 440",
-                    code:"AL1",
-                    days:["Monday", "Wednesday", "Friday"],
-                    type:"LEC",
-                    start:"4:00 pm",
-                    end:"4:50 pm"
-                },
-                {
-                    name:"CS 225",
-                    days:["Monday", "Wednesday", "Friday"],
-                    code:"AL1",
-                    type:"LEC",
-                    start:"12:00 pm",
-                    end:"12:50 pm",
-                }
-
-            ]
-		}
-
-	]
-};
-const plan2 = {
-    name: "Plan 2",
-    semester: "Spring 2018",
-	credits:"12",
-    courses:["MATH 374", "MATH 498", "MATH 440", "MATH 225"],
-    favourate:"Schedule 2_1",
-    schedules:[
-        {
-            name: "Schedule 1",
-			status:"unavailable",
-            sections:[
-                {
-                    name:"MATH 374",
-                    code:"AL1",
-                    days:["Monday", "Wednesday", "Friday"],
-                    type:"LEC",
-                    start:"10:00 am",
-                    end:"10:50 am"
-                },
-                {
-                    name:"MATH 498",
-                    code:"AL1",
-                    days:["Monday", "Wednesday", "Friday"],
-                    type:"LEC",
-                    start:"1:00 pm",
-                    end:"1:50 pm"
-                },
-                {
-                    name:"MATH 440",
-                    code:"AL1",
-                    days:["Tuesday", "Thursday"],
-                    type:"LEC",
-                    start:"3:30 pm",
-                    end:"4:45 pm"
-                },
-                {
-                    name:"MATH 225",
-                    code:"AL1",
-                    days:["Tuesday", "Thursday"],
-                    type:"LEC",
-                    start:"11:00 am",
-                    end:"11:50 am",
-                }
-
-            ]
-        },
-        {
-            name: "Schedule 2",
-			status:"available",
-            sections:[
-                {
-                    name:"MATH 374",
-                    code:"AL1",
-                    days:["Tuesday", "Thursday"],
-                    type:"LEC",
-                    start:"11:00 am",
-                    end:"11:50 am"
-                },
-                {
-                    name:"MATH 498",
-                    code:"AL1",
-                    days:["Tuesday", "Thursday"],
-                    type:"LEC",
-                    start:"2:00 pm",
-                    end:"2:50 pm"
-                },
-                {
-                    name:"MATH 440",
-                    code:"AL1",
-                    days:["Monday", "Wednesday", "Friday"],
-                    type:"LEC",
-                    start:"4:00 pm",
-                    end:"4:50 pm"
-                },
-                {
-                    name:"MATH 225",
-                    days:["Monday", "Wednesday", "Friday"],
-                    code:"AL1",
-                    type:"LEC",
-                    start:"12:00 pm",
-                    end:"12:50 pm",
-                }
-
-
-            ]
-        }
-
-    ]
-
-};
 const plan = {"name": "Plan 1",
     courses:['CS421, CS411, CS431, CS423, CS374'],
     schedules:[
@@ -530,7 +352,8 @@ const options = [
     {key:1, text: plan.name, value: plan}
 ]
 const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
-const times = ["8 am", "9 am", "10 am", "11 am", "12 pm", "1 pm", "2 pm", "3 pm", "4 pm", "5 pm", "6 pm"]
+const times = ["8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30",
+    "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30"]
 
 //-----------------------------
 
@@ -592,7 +415,7 @@ function ScheduleList(props){
                 <Card centered key={index} name={index} onClick={props.ScheduleClick}>
                     <Card.Content>
                         <div className="card_in">
-                            <h3 className="schedule_name">Schedule + {index}</h3>
+                            <h3 className="schedule_name">Schedule {index}</h3>
                         </div>
                         <div className="available_tag">
                             <Get_button status="available"/>
@@ -642,19 +465,17 @@ function LeftDiv(props){
 
 //function to display a row in schedule calendar
 function ScheduleBlock(props){
-    let double = false;
+    let schedule = props.currPlan.schedules[props.currSchedule].split(";");
     let blocks = days.map((element,index)=>{
         let i = 0;
-        let schedule = props.currPlan.schedules[props.currSchedule].split(";");
         for(i=0; i<schedule.length; i++){                  //loop over the sections for the schedule
             if(schedule[i] === ""){
                 continue;
             }
-
             let info = d[schedule[i]];
             //-------parsing the times
             let sDays = info.days.split('');
-            let j = 0
+            let j = 0;
             for(j = 0; j<sDays.length;j++){
                 if(sDays[j] == 'M'){
                     sDays[j] = 'Monday'
@@ -674,23 +495,30 @@ function ScheduleBlock(props){
             }
             let startTime = info.start.split(':');
             let endTime = info.end.split(':');
-            let currTime = props.time.split(" ");
+            let currTime = props.time.split(":");
             let startH = Number(startTime[0]);
             let endH = Number(endTime[0]);
-            if(currTime[1] == 'PM'){
-                currTime[0] = Number(currTime[0])+12;
-            }
+
             //----------------
             //console.log(startH)
             //console.log(currTime[0]);
-            if(startH == currTime[0]){           //check if any sections have a start time matching the current row
-                console.log(sDays);
+            if(startH == currTime[0] && Number(startTime[1]) >= Number(currTime[1]) && Number(startTime[1]) < Number(currTime[1]) + 30){           //check if any sections have a start time matching the current row's time range
                 if(sDays.indexOf(element) > -1){//if time matches, check which day
-                    console.log("match2");
-                    if(endH > currTime[0])   // if longer than an hour, make the block two rows
+                    if(endH > Number(currTime[0]) && Number(endTime[1]) >= Number(currTime[1])+20)   // if 2 hours long, make the block 4 rows
                     {
                         return(
-                            <Table.Cell active rowSpan='2' key={props.time + element}>
+                            <Table.Cell active rowSpan='4' key={props.time + element}>
+
+                                <p>{info.sectionId}</p>
+                                <p>{info.start}-
+                                    {info.end}</p>
+                            </Table.Cell>
+                        )
+                    }
+                    else if(endH > Number(currTime[0]))   // if longer than an hour, make the block 3 rows
+                    {
+                        return(
+                            <Table.Cell active rowSpan='3' key={props.time + element}>
 
                                 <p>{info.sectionId}</p>
                                 <p>{info.start}-
@@ -700,29 +528,32 @@ function ScheduleBlock(props){
                     }
                     else{
                         return(
-                            <Table.Cell active rowSpan='1' key={props.time + element}>
+                            <Table.Cell active rowSpan='2' key={props.time + element}>
+
                                 <p>{info.sectionId}</p>
                                 <p>{info.start}-
                                     {info.end}</p>
-
                             </Table.Cell>
                         )
-
                     }
+
 
 
                 }
 
             }
             //check if the block is two rows so we can avoid adding a block in that spot
-            else if(endH == currTime[0] && startH < currTime[0]){
-                console.log("skipping row");
+            else if(endH == currTime[0] && Number(endTime[1]) >= Number(currTime[1]) && startH <= Number(currTime[0])){
+                if(sDays.indexOf(element) > -1) {
+                    return;
+                }
+            }
+            else if(endH > Number(currTime[0]) &&  startH <= Number(currTime[0])){
                 if(sDays.indexOf(element) > -1) {
                     return;
                 }
             }
         }
-
         //if no matches, just return an empty cell
         return(
             <Table.Cell key={props.time + element}>
@@ -731,6 +562,7 @@ function ScheduleBlock(props){
 
         )
     })
+
 
     return(
         <Table.Row>
