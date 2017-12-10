@@ -19,7 +19,7 @@ class Register extends Component {
             error: false
         }
 
-        this.baseUrl = "http://localhost:3000"
+        this.baseUrl = "https://uiuc-course-scheduler.herokuapp.com"
         this.register = this.register.bind(this);
         this.passwordChange = this.passwordChange.bind(this);
         this.usernameChange = this.usernameChange.bind(this);

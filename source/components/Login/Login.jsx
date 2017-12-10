@@ -17,7 +17,7 @@ class Login extends Component {
             error: false
         }
 
-        this.baseUrl = "http://localhost:3000"
+        this.baseUrl = "https://uiuc-course-scheduler.herokuapp.com"
         this.login = this.login.bind(this);
         this.passwordChange = this.passwordChange.bind(this);
         this.usernameChange = this.usernameChange.bind(this);

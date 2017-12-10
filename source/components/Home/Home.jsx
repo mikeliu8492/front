@@ -19,7 +19,7 @@ class Home extends Component {
             <Router>
 				<Switch>
 					<Route exact path="/" render={()=>{
-						return <Redirect to="/create"/>;
+						return <Redirect to="/login"/>;
 					}}/>
 					<Route exact path="/login" render={()=>{
 						return <Login />;

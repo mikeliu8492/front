@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Image, List, Menu, Button, Input, Table, Message, Form, Label, Icon, Card} from 'semantic-ui-react'
+import { Image, List, Menu, Button, Input, Table, Message, Form, Label, Icon, Card, Segment, Dimmer, Loader} from 'semantic-ui-react'
 import { Redirect, Link } from 'react-router-dom'
 import axios from "axios";
 import styles from './CreatePlan.scss'
@@ -27,7 +27,7 @@ function NavBar(props){
                 <Menu.Item name={viewPlanStr} active={active} onClick={props.OnClick} position="right">
                     {viewPlanStr}
                 </Menu.Item>
-                <Menu.Item name={logOutStr} active={active} onClick={props.OnClick} position="right">
+                <Menu.Item name={logOutStr} active={active} onClick={props.logout} position="right">
                     {logOutStr}
                 </Menu.Item>
             </Menu>
@@ -43,7 +43,7 @@ function Header(props){
         <div className="header1">
             <div className="headerImage"></div>
             <a className="header_title">UIUC Course Scheduler</a>
-            <NavBar OnClick={props.OnClick}/>
+            <NavBar OnClick={props.OnClick} logout={props.logout}/>
         </div>
     );
 }
@@ -96,6 +96,13 @@ function LeftList(props){
 
 // inside the course list, the right subject list
 function RightList(props){
+
+    if(props.state.loading_course){
+        return(
+            <Loader active inline='centered' />
+        )
+    }
+
     let listItems = props.courseList.map((element, index)=>{
         let content = element.courseId + " : "  + element.courseName;
         if(content.length > 50){
@@ -162,7 +169,7 @@ function CourseList(props){
                 <Table.Body>
                     <Table.Row>
                         <Table.Cell width="1"><LeftList subjectList={props.subjectList} selectSubject={props.selectSubject} state={props.state}/></Table.Cell>
-                        <Table.Cell><RightList courseList={props.courseList} selectCourse={props.selectCourse}/></Table.Cell>
+                        <Table.Cell><RightList courseList={props.courseList} selectCourse={props.selectCourse} state={props.state}/></Table.Cell>
                         <Table.Cell width="6"><CourseDetail addCourse={props.addCourse} state={props.state}/></Table.Cell>
                     </Table.Row>
                 </Table.Body>
@@ -247,6 +254,7 @@ class CreatePlan extends Component{
 	constructor(props){
 		super(props);
 		this.state = {
+            logout: false,
             plan_name: "",
 			redirectStr: null,
 			inputSubject: "",
@@ -264,22 +272,40 @@ class CreatePlan extends Component{
 			courseList: [],
             allcourseList: [],
             course: [],
-            credit: 0
+            credit: 0,
+            created: false,
+            loading_course: false,
+            loading_page: true
         }
 
 		this.menuOnClick = this.menuOnClick.bind(this);
 		this.inputOnChange = this.inputOnChange.bind(this);
         this.selectSubject = this.selectSubject.bind(this);
-        this.baseUrl       = "http://localhost:3000";
+        this.baseUrl       = "https://uiuc-course-scheduler.herokuapp.com";
         this.selectCourse  = this.selectCourse.bind(this);
         this.addCourse     = this.addCourse.bind(this);
         this.deleteCourse  = this.deleteCourse.bind(this);
         this.clearCourse   = this.clearCourse.bind(this);
         this.planNameChange = this.planNameChange.bind(this);
         this.createPlan     = this.createPlan.bind(this);
+        this.logout         = this.logout.bind(this);
 	}
 
+    componentDidMount(){
+        this.setState({
+            loading_page: false
+        })
+    }
 
+
+    logout(){
+        let url = this.baseUrl + "/users/logout"
+        axios.get(url).then(res => {
+            this.setState({
+                logout: true
+            });
+        });
+    }
 
 
 	// header menu
@@ -309,6 +335,11 @@ class CreatePlan extends Component{
             });
 
             let url = this.baseUrl + "/courses/" + result[0]
+
+            this.setState({
+                loading_course: true
+            });
+
             axios.get(url).then(res => {
                 this.setState({
                     allcourseList: res.data.data,
@@ -323,9 +354,11 @@ class CreatePlan extends Component{
                     if(num.indexOf(text) == 0) result.push(course);
                 });
                 this.setState({
-                    courseList: result
+                    courseList: result,
+                    loading_course: false
                 });
             });
+
 
 		}
 		if(name == courseNumStr){
@@ -358,6 +391,11 @@ class CreatePlan extends Component{
             currentSubject: event.target.textContent
         })
         let url = this.baseUrl + "/courses/" + event.target.textContent
+
+        this.setState({
+            loading_course: true
+        });
+
         axios.get(url).then(res => {
             this.setState({
                 allcourseList: res.data.data,
@@ -373,7 +411,8 @@ class CreatePlan extends Component{
             });
 
             this.setState({
-                courseList: result
+                courseList: result,
+                loading_course: false
             });
         });
     }
@@ -409,7 +448,7 @@ class CreatePlan extends Component{
         let credit = this.state.credit - parseInt(this.state.course[index].creditInfo.substring(0,1));
         arr.splice(index,1);
         this.setState({
-            credit : credit, 
+            credit : credit,
             course : arr
         });
     }
@@ -428,11 +467,36 @@ class CreatePlan extends Component{
         }
         console.log(send);
         axios.post(url,send).then(response => {
-                        console.log()
+                        this.setState(
+                            {created: true}
+                        )
                     });
     }
 
 	render(){
+        if(this.state.logout){
+            return <Redirect to="/login"/>
+        }
+
+        if(this.state.created){
+            return <Redirect to="/view/"/>
+        }
+
+        if(this.state.loading_page){
+            return (
+                <div>
+                    <Header OnClick={this.menuOnClick} logout={this.logout.bind(this)}/>
+                    <div className="blank"></div>
+                    <div className="bodyDiv">
+                        <div className="loading_box">
+                            <Loader active inline size="huge"/>
+                            <h1>Loading</h1>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
 		if(this.state.redirectStr === createPlanStr){
 			console.log("Refresh create");
 			window.location.reload();
@@ -445,7 +509,8 @@ class CreatePlan extends Component{
 		// else render this page
 		return (
 			<div>
-				<Header OnClick={this.menuOnClick}/>
+				<Header OnClick={this.menuOnClick} logout={this.logout}/>
+                <div className="blank"></div>
 				<Body OnChange={this.inputOnChange} subjectList={this.state.subjectList}
                       selectSubject={this.selectSubject} selectCourse={this.selectCourse}
                       deleteCourse={this.deleteCourse} courseList={this.state.courseList}

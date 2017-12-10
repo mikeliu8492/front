@@ -6,8 +6,14 @@ body{
 
 }
 
+.blank{
+    height: 52px;
+    width: 100%;
+}
+
 .header1{
-  position: relative;
+
+  position: fixed;
   width: 100%;
   height: 52px;
   background-color: rgb(80, 80, 80);
@@ -55,7 +61,7 @@ body{
   position: relative;
   float: right;
   width: 25%;
-  height:1300px;
+  height:970px;
   background-color: rgb(252, 251, 249);
   box-shadow: 2px 0px 2px #ccc;
   z-index: 2;
@@ -99,7 +105,7 @@ body{
     background-color: rgb(245,245,245);
     height: 35px;
     border-bottom: 1px solid rgb(200,200,200);
-    border-top: 2px solid rgb(244, 161, 0);
+    border-top: 1px solid rgb(244, 161, 0);
 }
 
   .scheduleListContainer{
@@ -111,7 +117,7 @@ body{
     margin: 0px;
     z-index: -2;
     padding:  13px 5px 0px 5px;
-    height: 700px;
+    height: 817px;
     background-color: rgb(252, 251, 249);
 
   }
@@ -132,6 +138,7 @@ body{
           color: #666;
           font-weight: bold;
           font-size: 1.5em;
+          margin-left: 3px;
       }
     }
 
@@ -171,11 +178,18 @@ body{
 
 .rightDiv{
   width:75%;
-  height:1300px;
+  height: 970px;
   align-items: center;
-  background-color: rgb(252, 251, 249);
+  background-color: rgb(235, 235, 235);
   box-shadow: 3px 0px 3px #ccc;
-  border: 1px solid rgb(200, 200, 200);
+  border: 1px solid rgb(252, 251, 249);
+
+  .no_possible{
+      text-align: center;
+      width: 75%;
+      position: absolute;
+      top: 300px;
+  }
 
   .main_title{
       display: inline-block;
@@ -185,9 +199,9 @@ body{
 
   .planInfoContainer{
     height:200px;
-    background-color: rgb(250,250,250);
-    border-top: 1px solid rgb(200,200,200);
-    border-bottom: 2px solid rgb(200,200,200);
+    background-color: rgb(252, 251, 249);
+
+
 
     .planInfo{
       display:inline-block;
@@ -203,9 +217,7 @@ body{
      color: #aaa;
   }
 
-  .ui.segment{
-      padding: 5px 10px;
-  }
+
 
   .labels{
       position: absolute;
@@ -238,8 +250,8 @@ body{
   .scheduleNameLabel{
     text-align: left;
     padding: 10px;
-    background-color: rgb(245,245,245);
-    border-bottom: 1px solid rgb(200,200,200);
+    background-color: rgb(235, 235, 235);
+
     border-top: 2px solid rgb(244, 161, 0);
     .available{
         font-weight: normal;
@@ -249,33 +261,102 @@ body{
         font-weight: normal;
         color:red;
     }
+
+    .ui.segment{
+        padding: 5px 10px;
+        background-color: rgb(250,250,250);
+    }
+
+    .ui.yellow.segment:not(.inverted){
+        border-bottom: 1px solid #fbbd08!important;
+        border-top: 1px solid #ddd !important;
+    }
   }
+
+  .ui.padded.table td, .ui.padded.table th{
+      padding: 0.6em 0px;
+      text-align: center;
+  }
+  .calendarSeg{
+      .ui.segment{
+          padding: 0px;
+          margin: 0px 10px;
+      }
+  }
+
   .calendar{
     box-shadow: 3px 0px -3px #ccc;
-    border: 1px solid rgb(200, 200, 200);
-    margin: 10px;
+    padding: 0px;
+    margin: 0px;
     //height:1100px;
-    background-color: white;
+    background-color: rgb(252, 251, 249);
 
   }
 
 }
 
 .true{
-  background:limegreen;
-  box-shadow: 3px 0px -3px #ccc;
-  border: 3px solid rgb(200, 200, 200);
-}
-.false{
-  background:red;
-  color:white;
-  box-shadow: 3px 0px -3px #ccc;
-  border: 3px solid rgb(200, 200, 200);
+  background: rgba(207, 250, 196, 0.85);
+  border-radius: 1px;
 }
 
+.false{
+  background: rgba(249, 203, 215, 1);
+  border-radius: 1px;
+}
+
+.ui.celled.table .false{
+  border-left: 3px solid red;
+}
+
+.ui.celled.table .true{
+  border-left: 3px solid green;
+}
 .footer{
     width:100%;
-    height: 160px;
+    height: 100px;
     background-color: rgb(80, 80, 80);
 
+}
+
+.sectionName{
+    padding: 0px;
+    margin: 0px;
+    position: relative;
+    font-weight: bold;
+    font-size: 1.3em;
+    left: -25px;
+    top: 5px;
+}
+
+.sectionID{
+    padding: 0px;
+    margin: 0px;
+    position: relative;
+    left: 35px;
+    top: -17px;
+    font-size: 1.2em;
+
+}
+
+.sectionTime{
+    position: relative;
+    padding: 0px;
+    margin: 0px;
+    font-size: 1.1em;
+    font-style: italic;
+    top: -10px;
+    left: -5px;
+}
+
+.crns{
+    font-size: 0.85em;
+    line-height: 50px;
+    vertical-align: baseline;
+    cursor: text;
+
+}
+
+.ui.card>.extra, .ui.cards>.card>.extra{
+    padding: 0px;
 }

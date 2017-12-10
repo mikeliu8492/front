@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Image, List, Menu, Button, Input, Dropdown, Card, Label, Segment, Table } from 'semantic-ui-react'
+import { Image, List, Menu, Button, Input, Dropdown, Card, Label, Segment, Table, Message , Loader} from 'semantic-ui-react'
 import {Redirect, Link } from 'react-router-dom'
 import axios from "axios"
 
@@ -10,385 +10,7 @@ const logOutStr = "Log Out";
 
 const active = true;
 
-const courses = [
 
-
-    {
-            "courseId": "CS 374",
-            "courseName": "Introduction to Algorithms & Models of Computation",
-            "creditInfo": "4 hours.",
-            "description": "Analysis of algorithms, major paradigms of algorithm design including recursive algorithms, divide-and-conquer algorithms, dynamic programming, greedy algorithms, and graph algorithms. Formal models of computation including finite automata and Turing machines. Limitations of computation arising from fundamental notions of algorithm and from complexity-theoretic constraints. Reductions, undecidability and NP-completeness. Same as ECE 374. Prerequisite: CS 225; MATH 225 or MATH 415.",
-            "sections": [
-                {
-                    "crn": "65088",
-                    "sectionId": "AL1",
-                    "type": "LEC",
-                    "days": "TR",
-                    "start": "11:00",
-                    "end": "12:15",
-                    "available": false
-                },
-                {
-                    "crn": "65089",
-                    "sectionId": "AYA",
-                    "type": "DIS",
-                    "days": "WF",
-                    "start": "09:00",
-                    "end": "09:50",
-                    "available": true
-                },
-                {
-                    "crn": "65090",
-                    "sectionId": "AYB",
-                    "type": "DIS",
-                    "days": "WF",
-                    "start": "10:00",
-                    "end": "10:50",
-                    "available": false
-                },
-                {
-                    "crn": "65091",
-                    "sectionId": "AYC",
-                    "type": "DIS",
-                    "days": "WF",
-                    "start": "11:00",
-                    "end": "11:50",
-                    "available": true
-                },
-                {
-                    "crn": "65092",
-                    "sectionId": "AYD",
-                    "type": "DIS",
-                    "days": "WF",
-                    "start": "12:00",
-                    "end": "12:50",
-                    "available": true
-                },
-                {
-                    "crn": "65093",
-                    "sectionId": "AYE",
-                    "type": "DIS",
-                    "days": "WF",
-                    "start": "13:00",
-                    "end": "13:50",
-                    "available": true
-                },
-                {
-                    "crn": "65094",
-                    "sectionId": "AYF",
-                    "type": "DIS",
-                    "days": "WF",
-                    "start": "14:00",
-                    "end": "14:50",
-                    "available": false
-                },
-                {
-                    "crn": "65095",
-                    "sectionId": "AYG",
-                    "type": "DIS",
-                    "days": "WF",
-                    "start": "15:00",
-                    "end": "15:50",
-                    "available": true
-                },
-                {
-                    "crn": "65096",
-                    "sectionId": "AYH",
-                    "type": "DIS",
-                    "days": "WF",
-                    "start": "16:00",
-                    "end": "16:50",
-                    "available": true
-                },
-                {
-                    "crn": "65097",
-                    "sectionId": "AYJ",
-                    "type": "DIS",
-                    "days": "WF",
-                    "start": "13:00",
-                    "end": "13:50",
-                    "available": true
-                },
-                {
-                    "crn": "65098",
-                    "sectionId": "AYK",
-                    "type": "DIS",
-                    "days": "WF",
-                    "start": "14:00",
-                    "end": "14:50",
-                    "available": true
-                },
-                {
-                    "crn": "67005",
-                    "sectionId": "BL1",
-                    "type": "LEC",
-                    "days": "TR",
-                    "start": "11:00",
-                    "end": "12:15",
-                    "available": false
-                },
-                {
-                    "crn": "67949",
-                    "sectionId": "BYA",
-                    "type": "DIS",
-                    "days": "WF",
-                    "start": "09:00",
-                    "end": "09:50",
-                    "available": true
-                },
-                {
-                    "crn": "67951",
-                    "sectionId": "BYB",
-                    "type": "DIS",
-                    "days": "WF",
-                    "start": "10:00",
-                    "end": "10:50",
-                    "available": true
-                },
-                {
-                    "crn": "67953",
-                    "sectionId": "BYC",
-                    "type": "DIS",
-                    "days": "WF",
-                    "start": "13:00",
-                    "end": "13:50",
-                    "available": false
-                },
-                {
-                    "crn": "67955",
-                    "sectionId": "BYD",
-                    "type": "DIS",
-                    "days": "WF",
-                    "start": "14:00",
-                    "end": "14:50",
-                    "available": false
-                },
-                {
-                    "crn": "67957",
-                    "sectionId": "BYE",
-                    "type": "DIS",
-                    "days": "WF",
-                    "start": "15:00",
-                    "end": "15:50",
-                    "available": true
-                },
-                {
-                    "crn": "67959",
-                    "sectionId": "BYF",
-                    "type": "DIS",
-                    "days": "WF",
-                    "start": "16:00",
-                    "end": "16:50",
-                    "available": true
-                },
-                {
-                    "crn": "67961",
-                    "sectionId": "BYG",
-                    "type": "DIS",
-                    "days": "WF",
-                    "start": "15:00",
-                    "end": "15:50",
-                    "available": true
-                },
-                {
-                    "crn": "67963",
-                    "sectionId": "BYH",
-                    "type": "DIS",
-                    "days": "WF",
-                    "start": "16:00",
-                    "end": "16:50",
-                    "available": true
-                }
-            ]
-
-    },
-    {
-
-            "courseId": "CS 421",
-            "courseName": "Progrmg Languages & Compilers",
-            "creditInfo": "3 OR 4 hours.",
-            "description": "Structure of programming languages and their implementation. Basic language design principles; abstract data types; functional languages; type systems; object-oriented languages. Basics of lexing, parsing, syntax-directed translation, semantic analysis, and code generation. 3 undergraduate hours. 3 or 4 graduate hours. Prerequisite: CS 233 and CS 373.",
-            "sections": [
-                {
-                    "crn": "31375",
-                    "sectionId": "B3",
-                    "type": "LEC",
-                    "days": "TR",
-                    "start": "17:00",
-                    "end": "18:15",
-                    "available": false
-                },
-                {
-                    "crn": "31376",
-                    "sectionId": "B4",
-                    "type": "LEC",
-                    "days": "TR",
-                    "start": "17:00",
-                    "end": "18:15",
-                    "available": false
-                },
-                {
-                    "crn": "63756",
-                    "sectionId": "C3",
-                    "type": "LEC",
-                    "days": "TR",
-                    "start": "15:30",
-                    "end": "16:45",
-                    "available": false
-                },
-                {
-                    "crn": "63757",
-                    "sectionId": "C4",
-                    "type": "LEC",
-                    "days": "TR",
-                    "start": "15:30",
-                    "end": "16:45",
-                    "available": false
-                }
-            ]
-
-
-    },
-    {
-        "courseId": "CS 423",
-        "courseName": "Operating Systems Design",
-        "creditInfo": "3 OR 4 hours.",
-        "description": "Organization and structure of modern operating systems and concurrent programming concepts. Deadlock, virtual memory, processor scheduling, and disk systems. Performance, security, and protection. Same as CSE 423. 3 undergraduate hours. 3 or 4 graduate hours. Prerequisite: CS 241 or ECE 391.",
-        "sections": [
-            {
-                "crn": "31378",
-                "sectionId": "C3",
-                "type": "LEC",
-                "days": "MWF",
-                "start": "11:00",
-                "end": "11:50",
-                "available": true
-            },
-            {
-                "crn": "31379",
-                "sectionId": "C4",
-                "type": "LEC",
-                "days": "MWF",
-                "start": "11:00",
-                "end": "11:50",
-                "available": true
-            }
-        ]
-    },
-    {
-        "courseId": "CS 411",
-        "courseName": "Database Systems",
-        "creditInfo": "3 OR 4 hours.",
-        "description": "Examination of the logical organization of databases: the entity-relationship model; the hierarchical, network, and relational data models and their languages. Functional dependencies and normal forms. Design, implementation, and optimization of query languages; security and integrity; concurrency control, and distributed database systems. 3 undergraduate hours. 3 or 4 graduate hours. Prerequisite: CS 225.",
-        "sections": [
-            {
-                "crn": "31352",
-                "sectionId": "N3",
-                "type": "LEC",
-                "days": "MW",
-                "start": "08:00",
-                "end": "09:15",
-                "available": false
-            },
-            {
-                "crn": "31355",
-                "sectionId": "N4",
-                "type": "LEC",
-                "days": "MW",
-                "start": "08:00",
-                "end": "09:15",
-                "available": false
-            }
-        ]
-    },
-    {
-    "courseId": "CS 431",
-    "courseName": "Embedded Systems",
-    "creditInfo": "3 or 4 hours.",
-    "description": "A survey of sampled data systems and embedded architecture; key concepts in common embedded system applications; signal processing and control; embedded microprocessor and device interface; time-critical I/O handling; data communications; real-time operating systems and techniques for the development and analysis of embedded real-time software; hands-on laboratory projects. 3 undergraduate hours. 3 or 4 graduate hours. Prerequisite: CS 241 or ECE 391.",
-    "sections": [
-    {
-        "crn": "31398",
-        "sectionId": "AB1",
-        "type": "LAB",
-        "days": "W",
-        "start": "15:00",
-        "end": "16:50",
-        "available": false
-    },
-    {
-        "crn": "31401",
-        "sectionId": "AB2",
-        "type": "LAB",
-        "days": "W",
-        "start": "17:00",
-        "end": "18:50",
-        "available": false
-    },
-    {
-        "crn": "31399",
-        "sectionId": "AB3",
-        "type": "LAB",
-        "days": "R",
-        "start": "17:00",
-        "end": "18:50",
-        "available": true
-    },
-    {
-        "crn": "31393",
-        "sectionId": "AL3",
-        "type": "LEC",
-        "days": "TR",
-        "start": "12:30",
-        "end": "13:45",
-        "available": true
-    },
-    {
-        "crn": "31396",
-        "sectionId": "AL4",
-        "type": "LEC",
-        "days": "TR",
-        "start": "12:30",
-        "end": "13:45",
-        "available": true
-    }
-]
-}
-
-]
-
-//-----For Testing------------
-
-const plan = {"name": "Plan 1",
-    courses:['CS421, CS411, CS431, CS423, CS374'],
-    schedules:[
-    '31375;31352;31393;31378;65088;;;;;65090;;;31398;;;',
-    '63756;31352;31393;31378;65088;;;;;65090;;;31398;;;',
-    '31375;31352;31393;31378;65088;;;;;65092;;;31398;;;',
-    '31375;31352;31393;31378;65088;;;;;65093;;;31398;;;',
-    '31375;31352;31393;31378;65088;;;;;65094;;;31398;;;',
-    '31375;31352;31393;31378;65088;;;;;65095;;;31401;;;',
-    '31375;31352;31393;31378;65088;;;;;65096;;;31401;;;',
-    '63756;31352;31393;31378;65088;;;;;65092;;;31398;;;',
-    '63756;31352;31393;31378;65088;;;;;65093;;;31398;;;',
-    '63756;31352;31393;31378;65088;;;;;65094;;;31398;;;',
-    '63756;31352;31393;31378;65088;;;;;65095;;;31401;;;',
-    '63756;31352;31393;31378;65088;;;;;65096;;;31401;;;',
-    '31375;31352;31393;31378;65088;;;;;65090;;;31401;;;',
-    '63756;31352;31393;31378;65088;;;;;65090;;;31401;;;',
-    '31375;31352;31393;31378;65088;;;;;65092;;;31401;;;',
-    '31375;31352;31393;31378;65088;;;;;65093;;;31401;;;',
-    '31375;31352;31393;31378;65088;;;;;65094;;;31401;;;',
-    '63756;31352;31393;31378;65088;;;;;65092;;;31401;;;',
-    '63756;31352;31393;31378;65088;;;;;65093;;;31401;;;',
-    '63756;31352;31393;31378;65088;;;;;65094;;;31401;;;' ]}
-
-const d = {};
-
-
-const options = [
-    {key:1, text: plan.name, value: plan}
-]
 const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
 const times = ["8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30",
     "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30"]
@@ -407,7 +29,7 @@ function NavBar(props){
 				<Menu.Item name={viewPlanStr} active={active} onClick={props.OnClick} position="right">
                     {viewPlanStr}
 				</Menu.Item>
-				<Menu.Item name={logOutStr} active={active} onClick={props.OnClick} position="right">
+				<Menu.Item name={logOutStr} active={active} onClick={props.logout} position="right">
                     {logOutStr}
 				</Menu.Item>
 			</Menu>
@@ -446,17 +68,29 @@ function ScheduleList(props){
                </Card>
             )
         });**/
+        //console.log(props.currPlan.schedules);
+
 
         temp = props.currPlan.schedules.map((element, index)=>{
             //if(props.currPlan.favourate !== element.name)
+            //console.log(element);
             let temp1 = element.split(";");
             let i = 0
             let status = "available";
-            for(i=0; i<temp1.length;i++){
-                if(temp1[i] == ""){
+            let crn= "";
+            let first= true;
+
+            for(i=0; i<temp1.length - 2;i++){
+
+                if(temp1[i] == "" || temp1[i] == "A" || temp1[i] == "U"){
                     continue;
                 }
-                if(d[temp1[i]].available == false){
+                //console.log(temp1[i]);
+                //console.log(props.state.dict[temp1[48199]]);
+                if(!first) crn += " , ";
+                else first=false;
+                crn += temp1[i];
+                if(props.state.dict[temp1[i]].available == false){
                     status = "unavailable"
                 }
 
@@ -473,7 +107,7 @@ function ScheduleList(props){
                         </div>
                     </Card.Content>
                     <Card.Content extra>
-
+                        <p className="crns">CRN:&nbsp;&nbsp;{crn}</p>
                     </Card.Content>
                </Card>
             )
@@ -497,7 +131,7 @@ function LeftDiv(props){
 			<div className="inputContainer">
 				<h3 className="inputLabel"> Plan Name: </h3>
 				<div className="dropdownContainer">
-					<Dropdown className="dropdown" selection options={options} size="small"
+					<Dropdown className="dropdown" selection options={props.options} size="small"
 					   onChange={props.OnChange} value={props.currPlan}/>
 				</div>
 			</div>
@@ -506,7 +140,7 @@ function LeftDiv(props){
 			</div>
 			<div className="scheduleListContainer">
 				<ScheduleList currPlan={props.currPlan} currSchedule={props.currSchedule}
-							  ScheduleClick={props.ScheduleClick}/>
+							  ScheduleClick={props.ScheduleClick} state={props.state}/>
 			</div>
             <div className="scheduleListUnder"></div>
 		</div>
@@ -519,11 +153,11 @@ function ScheduleBlock(props){
     let schedule = props.currPlan.schedules[props.currSchedule].split(";");
     let blocks = days.map((element,index)=>{
         let i = 0;
-        for(i=0; i<schedule.length; i++){                  //loop over the sections for the schedule
+        for(i=0; i<schedule.length - 2; i++){                  //loop over the sections for the schedule
             if(schedule[i] === ""){
                 continue;
             }
-            let info = d[schedule[i]];
+            let info = props.state.dict[schedule[i]];
             //-------parsing the times
             let sDays = info.days.split('');
             let j = 0;
@@ -559,9 +193,9 @@ function ScheduleBlock(props){
                     {
                         return(
                             <Table.Cell className={info.available.toString()} rowSpan='4' key={props.time + element}>
-                                <p>{info.courseName}</p>
-                                <p>{info.sectionId}</p>
-                                <p>{info.start}-
+                                <p className="sectionName">{info.courseName}</p>
+                                <p className="sectionID">{info.sectionId}</p>
+                                <p className="sectionTime">{info.start}-
                                     {info.end}</p>
                             </Table.Cell>
                         )
@@ -570,9 +204,9 @@ function ScheduleBlock(props){
                     {
                         return(
                             <Table.Cell className={info.available.toString()}  rowSpan='3' key={props.time + element}>
-                                <p>{info.courseName}</p>
-                                <p>{info.sectionId}</p>
-                                <p>{info.start}-
+                                <p className="sectionName">{info.courseName}</p>
+                                <p className="sectionID">{info.sectionId}</p>
+                                <p className="sectionTime">{info.start}-
                                     {info.end}</p>
                             </Table.Cell>
                         )
@@ -580,9 +214,9 @@ function ScheduleBlock(props){
                     else{
                         return(
                             <Table.Cell className={info.available.toString()} rowSpan='2' key={props.time + element}>
-                                <p>{info.courseName}</p>
-                                <p>{info.sectionId}</p>
-                                <p>{info.start}-
+                                <p className="sectionName">{info.courseName}</p>
+                                <p className="sectionID">{info.sectionId}</p>
+                                <p className="sectionTime">{info.start}-
                                     {info.end}</p>
                             </Table.Cell>
                         )
@@ -636,14 +270,14 @@ function Calendar(props){
     //each row is a particular time
     let rows = times.map((element, index)=>{
         return(
-            <ScheduleBlock key={index} time={element} currPlan={props.currPlan} currSchedule={props.currSchedule}/>
+            <ScheduleBlock key={index} time={element} currPlan={props.currPlan} currSchedule={props.currSchedule} state={props.state}/>
         )
 
     })
 
     return(
         <div className="calendar">
-            <Table fixed celled striped padded>
+            <Table celled striped padded size="small">
                 <Table.Header>
                     <Table.Row>
                         <Table.HeaderCell width="1"/>
@@ -672,20 +306,34 @@ function RightDiv(props) {
     let status1 = "available"
     if (props.currPlan != null) {
         temp = props.currPlan.courses.map((element, index) => {
-            console.log(element);
+            //console.log(element);
             return (
-				<a className="planInfoCourses" key={index}>{element}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+				<a className="planInfoCourses" key={index}>{element.courseId}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
 
             )
 
         })
+
+        if(props.currPlan.schedules.length == 0){
+            return(
+                <div className="rightDiv">
+                    <div  className="no_possible">
+                        <h1>No Possibles schedule for this plan</h1>
+                        <Label onClick={props.deletePlan} size="large" as='a' color="red" image>
+                            Delete Plan
+                        </Label>
+                    </div>
+                </div>
+            );
+        }
+
         let temp1 = props.currPlan.schedules[props.currSchedule].split(";");
         let i = 0
-        for(i=0; i<temp1.length;i++){
+        for(i=0; i<temp1.length - 2;i++){
             if(temp1[i] == ""){
                 continue;
             }
-            if(d[temp1[i]].available == false){
+            if(props.state.dict[temp1[i]].available == false){
                 status1 = "unavailable"
             }
 
@@ -694,18 +342,21 @@ function RightDiv(props) {
 	return(
 		<div className="rightDiv">
 			<div className="scheduleNameLabel">
-                <Segment raised>
+                <Segment raised className="planInfoSeg" color="yellow">
                 <Segment vertical>
     				<h1 className="main_title">{props.currPlan.name}</h1>
                     <a className="current_schedule">{props.currPlan.schedules[props.currSchedule].name}</a>
                     <div className="labels">
                         <Label size="large" as='a' color="blue" image>
                             Semester
-                            <Label.Detail>{props.currPlan.semester}</Label.Detail>
+                            <Label.Detail>Spring</Label.Detail>
                         </Label>
                         <Label size="large" as='a' color="blue" image>
                             Credits
-                            <Label.Detail>{props.currPlan.credits}</Label.Detail>
+                            <Label.Detail>2018</Label.Detail>
+                        </Label>
+                        <Label onClick={props.deletePlan} size="large" as='a' color="red" image>
+                            Delete
                         </Label>
                     </div>
                 </Segment>
@@ -718,9 +369,11 @@ function RightDiv(props) {
                 </div>
                 </Segment>
 			</div>
-            <Calendar currPlan={props.currPlan} currSchedule={props.currSchedule}/>
-
-
+            <div className="calendarSeg">
+                <Segment raised>
+                    <Calendar currPlan={props.currPlan} currSchedule={props.currSchedule} state={props.state}/>
+                </Segment>
+            </div>
 		</div>
 
 	)
@@ -731,7 +384,7 @@ function Header(props){
 		<div className="header1">
 			<div className="headerImage"></div>
 			<a className="header_title">UIUC Course Scheduler</a>
-			<NavBar OnClick={props.OnClick}/>
+			<NavBar OnClick={props.OnClick} logout={props.logout}/>
 		</div>
     );
 }
@@ -739,10 +392,11 @@ function Header(props){
 function Body(props){
 	return(
 		<div className="bodyDiv">
-			<LeftDiv OnChange = {props.OnChange} currPlan={props.currPlan}
-					 currSchedule={props.currSchedule} ScheduleClick={props.ScheduleClick}/>
+			<LeftDiv OnChange = {props.OnChange} currPlan={props.currPlan} options={props.options}
+					 currSchedule={props.currSchedule} ScheduleClick={props.ScheduleClick} state={props.state}/>
 
-			<RightDiv currPlan={props.currPlan} currSchedule={props.currSchedule} ScheduleClick={props.ScheduleClick} />
+			<RightDiv currPlan={props.currPlan} currSchedule={props.currSchedule} ScheduleClick={props.ScheduleClick}
+                      state={props.state}       deletePlan={props.deletePlan} />
 		</div>
 	)
 
@@ -757,35 +411,103 @@ class ViewPlan extends Component{
 	constructor(props){
 		super(props);
 		this.state={
+            data: false,
 			redirectStr:null,
-			currPlan:plan,
-			currScheduleIndex:0,
-            dict:d
-
+            plans:[],
+			currPlan: null,
+			currScheduleIndex: 0,
+            dict: {},
+            options: [],
+            logout: false,
+            no_plan: false,
+            reload_page: false
 		};
         this.menuOnClick = this.menuOnClick.bind(this);
         this.inputOnChange = this.inputOnChange.bind(this);
         this.scheduleOnClick = this.scheduleOnClick.bind(this);
-        this.baseUrl = "http://localhost:3000";
+        this.deletePlan      = this.deletePlan.bind(this);
+        this.baseUrl = "https://uiuc-course-scheduler.herokuapp.com";
 
 	}
 
+    logout(){
+        let url = this.baseUrl + "/users/logout"
+        axios.get(url).then(res => {
+            this.setState({
+                logout: true
+            });
+        });
+    }
+
+    deletePlan(){
+        console.log(this.state.currPlan._id);
+        let url = this.baseUrl + "/users/plan/" + this.state.currPlan._id;
+        axios.delete(url).then(res => {
+            this.setState({
+                reload_page: true
+            })
+        });
+    }
+
     componentWillMount(){
 
-          courses.map((course,index) => {
-              course.sections.map((section,index) => {
-                  section.courseName = course.courseId;
-                  d[section.crn]= section;
-              });
-          });
+        let url = this.baseUrl + "/users/plan"
 
-          console.log(d);
+        axios.get(url).then(res => {
+
+
+            console.log(res.data.data.length);
+            if(res.data.data.length == 0){
+                console.log("no");
+                this.setState({
+                    no_plan: true,
+                    data: true
+                });
+                return;
+            }
+
+            console.log("load plan")
+            let arr=[];
+            res.data.data.map((plan,index) => {
+                arr.push({key: index+1 , text: plan.name, value: plan});
+            });
+
+            res.data.data[0].courses.map((course,index) => {
+                  course.sections.map((section,index) => {
+                      section.courseName = course.courseId;
+                      this.state.dict[section.crn]= section;
+                  });
+            });
+
+            this.setState({
+                dict: this.state.dict,
+                currPlan: res.data.data[0],
+                options: arr,
+                plans: res.data.data,
+                data: true
+            });
+
+
+        })
 
       }
 
     inputOnChange(event, data){
-        this.setState({currPlan:data['value']},()=>{
-            console.log("currPlan: " + this.state.currPlan)});
+
+        data['value'].courses.map((course,index) => {
+              course.sections.map((section,index) => {
+                  section.courseName = course.courseId;
+                  this.state.dict[section.crn]= section;
+              });
+        });
+
+        this.setState({
+            currPlan: data['value'],
+            dict: this.state.dict
+        },()=>{
+        /*console.log("currPlan: " + this.state.currPlan)*/});
+
+
     }
 
     menuOnClick(event, {name}){
@@ -800,10 +522,54 @@ class ViewPlan extends Component{
 	}
 
 	render(){
+
+        if(this.state.reload_page){
+            window.location.reload();
+        }
+
+        if(this.state.logout){
+            return <Redirect to="/login"/>
+        }
+
         if(this.state.redirectStr === createPlanStr){
             console.log("Redirect to create");
             return <Redirect to="/create"/>
         }
+
+        if(!this.state.data){
+            return (
+                <div>
+                    <Header OnClick={this.menuOnClick} logout={this.logout.bind(this)}/>
+                    <div className="blank"></div>
+                    <div className="bodyDiv">
+                        <div className="loading_box">
+                            <Loader active inline size="huge"/>
+                            <h1>Loading Your Plans</h1>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+
+        if(this.state.no_plan){
+
+            return(
+                <div>
+                    <Header OnClick={this.menuOnClick} logout={this.logout.bind(this)}/>
+                    <div className="blank"></div>
+                    <div className="bodyDiv">
+                        <div className="message_box">
+                            <h1>Your Plan Repository is Empty</h1>
+                            <h3 className="lookback">look back here after you have created a plan</h3>
+                        </div>
+                    </div>
+                </div>
+            );
+
+        }
+
+
         if(this.state.redirectStr === viewPlanStr){
             console.log("Refresh view");
             window.location.reload();
@@ -812,9 +578,10 @@ class ViewPlan extends Component{
 
 		return (
 			<div>
-				<Header OnClick={this.menuOnClick}/>
-				<Body OnChange={this.inputOnChange} currPlan={this.state.currPlan} ScheduleClick={this.scheduleOnClick}
-				currSchedule={this.state.currScheduleIndex}/>
+				<Header OnClick={this.menuOnClick} logout={this.logout.bind(this)}/>
+                <div className="blank"></div>
+				<Body deletePlan={this.deletePlan} OnChange={this.inputOnChange} currPlan={this.state.currPlan} ScheduleClick={this.scheduleOnClick}
+				currSchedule={this.state.currScheduleIndex} options={this.state.options} state={this.state}/>
                 <Footer/>
 			</div>
 		);

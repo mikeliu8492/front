@@ -2,14 +2,17 @@
     display: none;
 }
 
-
+.blank{
+    height: 52px;
+    width: 100%;
+}
 
 .navbarDiv{
     padding: 6px;
 }
 
 .header1{
-	position: relative;
+	position: fixed;
 	width: 100%;
 	height: 52px;
 	background-color: rgb(80, 80, 80);
@@ -118,7 +121,7 @@
     padding: 0px;
 	position: relative;
 	width: 100%;
-	height: 800px;
+	height: 700px;
 	display: flex;
 	flex-direction: row;
 }
@@ -255,7 +258,7 @@
 }
 
 .courseDetail{
-    padding: 40px;
+    padding: 35px 50px;
     position: absolute;
     top: 40px;
     height: 560px;
@@ -293,7 +296,7 @@
     .addCourseButton{
         position: absolute;
         bottom: -5px;
-        left: 30px;
+        left: 50px;
     }
 
 }
@@ -413,7 +416,7 @@
 }
 
 .ui.primary.button, .ui.primary.buttons .button{
-    margin : 0px 20px;
+    margin : 0px 5px;
 }
 
 
@@ -428,7 +431,26 @@
 
 .footer{
     width:100%;
-    height: 160px;
     background-color: rgb(80, 80, 80);
+}
 
+.message_box{
+    position: absolute;
+    top: 200px;
+    height: 300px;
+    width: 100%;
+    text-align: center;
+
+    .lookback{
+        color: #999;
+        font-weight: normal;
+    }
+}
+
+.loading_box{
+    position: absolute;
+    top: 300px;
+    height: 300px;
+    width: 100%;
+    text-align: center;
 }
