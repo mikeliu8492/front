@@ -508,7 +508,7 @@ function ScheduleBlock(props){
                     {
                         return(
                             <Table.Cell active rowSpan='4' key={props.time + element}>
-
+                                <p>{info.courseName}</p>
                                 <p>{info.sectionId}</p>
                                 <p>{info.start}-
                                     {info.end}</p>
@@ -519,7 +519,7 @@ function ScheduleBlock(props){
                     {
                         return(
                             <Table.Cell active rowSpan='3' key={props.time + element}>
-
+                                <p>{info.courseName}</p>
                                 <p>{info.sectionId}</p>
                                 <p>{info.start}-
                                     {info.end}</p>
@@ -529,7 +529,7 @@ function ScheduleBlock(props){
                     else{
                         return(
                             <Table.Cell active rowSpan='2' key={props.time + element}>
-
+                                <p>{info.courseName}</p>
                                 <p>{info.sectionId}</p>
                                 <p>{info.start}-
                                     {info.end}</p>
@@ -711,6 +711,7 @@ class ViewPlan extends Component{
 
           courses.map((course,index) => {
               course.sections.map((section,index) => {
+                  section.courseName = course.courseId;
                   d[section.crn]= section;
               });
           });
