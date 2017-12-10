@@ -12,211 +12,266 @@ const active = true;
 
 const courses = [
 
+
     {
-        "courseId": "CS 374",
-        "courseName": "Introduction to Algorithms & Models of Computation",
-        "creditInfo": "4 hours.",
-        "description": "Analysis of algorithms, major paradigms of algorithm design including recursive algorithms, divide-and-conquer algorithms, dynamic programming, greedy algorithms, and graph algorithms. Formal models of computation including finite automata and Turing machines. Limitations of computation arising from fundamental notions of algorithm and from complexity-theoretic constraints. Reductions, undecidability and NP-completeness. Same as ECE 374. Prerequisite: CS 225; MATH 225 or MATH 415.",
-        "sections": [
-            {
-                "crn": "65088",
-                "sectionId": "AL1",
-                "type": "LEC",
-                "days": "TR",
-                "start": "11:00",
-                "end": "12:15"
-            },
-            {
-                "crn": "65089",
-                "sectionId": "AYA",
-                "type": "DIS",
-                "days": "WF",
-                "start": "09:00",
-                "end": "09:50"
-            },
-            {
-                "crn": "65090",
-                "sectionId": "AYB",
-                "type": "DIS",
-                "days": "WF",
-                "start": "10:00",
-                "end": "10:50"
-            },
-            {
-                "crn": "65091",
-                "sectionId": "AYC",
-                "type": "DIS",
-                "days": "WF",
-                "start": "11:00",
-                "end": "11:50"
-            },
-            {
-                "crn": "65092",
-                "sectionId": "AYD",
-                "type": "DIS",
-                "days": "WF",
-                "start": "12:00",
-                "end": "12:50"
-            },
-            {
-                "crn": "65093",
-                "sectionId": "AYE",
-                "type": "DIS",
-                "days": "WF",
-                "start": "13:00",
-                "end": "13:50"
-            },
-            {
-                "crn": "65094",
-                "sectionId": "AYF",
-                "type": "DIS",
-                "days": "WF",
-                "start": "14:00",
-                "end": "14:50"
-            },
-            {
-                "crn": "65095",
-                "sectionId": "AYG",
-                "type": "DIS",
-                "days": "WF",
-                "start": "15:00",
-                "end": "15:50"
-            },
-            {
-                "crn": "65096",
-                "sectionId": "AYH",
-                "type": "DIS",
-                "days": "WF",
-                "start": "16:00",
-                "end": "16:50"
-            },
-            {
-                "crn": "65097",
-                "sectionId": "AYJ",
-                "type": "DIS",
-                "days": "WF",
-                "start": "13:00",
-                "end": "13:50"
-            },
-            {
-                "crn": "65098",
-                "sectionId": "AYK",
-                "type": "DIS",
-                "days": "WF",
-                "start": "14:00",
-                "end": "14:50"
-            },
-            {
-                "crn": "67005",
-                "sectionId": "BL1",
-                "type": "LEC",
-                "days": "TR",
-                "start": "11:00",
-                "end": "12:15"
-            },
-            {
-                "crn": "67949",
-                "sectionId": "BYA",
-                "type": "DIS",
-                "days": "WF",
-                "start": "09:00",
-                "end": "09:50"
-            },
-            {
-                "crn": "67951",
-                "sectionId": "BYB",
-                "type": "DIS",
-                "days": "WF",
-                "start": "10:00",
-                "end": "10:50"
-            },
-            {
-                "crn": "67953",
-                "sectionId": "BYC",
-                "type": "DIS",
-                "days": "WF",
-                "start": "13:00",
-                "end": "13:50"
-            },
-            {
-                "crn": "67955",
-                "sectionId": "BYD",
-                "type": "DIS",
-                "days": "WF",
-                "start": "14:00",
-                "end": "14:50"
-            },
-            {
-                "crn": "67957",
-                "sectionId": "BYE",
-                "type": "DIS",
-                "days": "WF",
-                "start": "15:00",
-                "end": "15:50"
-            },
-            {
-                "crn": "67959",
-                "sectionId": "BYF",
-                "type": "DIS",
-                "days": "WF",
-                "start": "16:00",
-                "end": "16:50"
-            },
-            {
-                "crn": "67961",
-                "sectionId": "BYG",
-                "type": "DIS",
-                "days": "WF",
-                "start": "15:00",
-                "end": "15:50"
-            },
-            {
-                "crn": "67963",
-                "sectionId": "BYH",
-                "type": "DIS",
-                "days": "WF",
-                "start": "16:00",
-                "end": "16:50"
-            }
-        ]
+            "courseId": "CS 374",
+            "courseName": "Introduction to Algorithms & Models of Computation",
+            "creditInfo": "4 hours.",
+            "description": "Analysis of algorithms, major paradigms of algorithm design including recursive algorithms, divide-and-conquer algorithms, dynamic programming, greedy algorithms, and graph algorithms. Formal models of computation including finite automata and Turing machines. Limitations of computation arising from fundamental notions of algorithm and from complexity-theoretic constraints. Reductions, undecidability and NP-completeness. Same as ECE 374. Prerequisite: CS 225; MATH 225 or MATH 415.",
+            "sections": [
+                {
+                    "crn": "65088",
+                    "sectionId": "AL1",
+                    "type": "LEC",
+                    "days": "TR",
+                    "start": "11:00",
+                    "end": "12:15",
+                    "available": false
+                },
+                {
+                    "crn": "65089",
+                    "sectionId": "AYA",
+                    "type": "DIS",
+                    "days": "WF",
+                    "start": "09:00",
+                    "end": "09:50",
+                    "available": true
+                },
+                {
+                    "crn": "65090",
+                    "sectionId": "AYB",
+                    "type": "DIS",
+                    "days": "WF",
+                    "start": "10:00",
+                    "end": "10:50",
+                    "available": false
+                },
+                {
+                    "crn": "65091",
+                    "sectionId": "AYC",
+                    "type": "DIS",
+                    "days": "WF",
+                    "start": "11:00",
+                    "end": "11:50",
+                    "available": true
+                },
+                {
+                    "crn": "65092",
+                    "sectionId": "AYD",
+                    "type": "DIS",
+                    "days": "WF",
+                    "start": "12:00",
+                    "end": "12:50",
+                    "available": true
+                },
+                {
+                    "crn": "65093",
+                    "sectionId": "AYE",
+                    "type": "DIS",
+                    "days": "WF",
+                    "start": "13:00",
+                    "end": "13:50",
+                    "available": true
+                },
+                {
+                    "crn": "65094",
+                    "sectionId": "AYF",
+                    "type": "DIS",
+                    "days": "WF",
+                    "start": "14:00",
+                    "end": "14:50",
+                    "available": false
+                },
+                {
+                    "crn": "65095",
+                    "sectionId": "AYG",
+                    "type": "DIS",
+                    "days": "WF",
+                    "start": "15:00",
+                    "end": "15:50",
+                    "available": true
+                },
+                {
+                    "crn": "65096",
+                    "sectionId": "AYH",
+                    "type": "DIS",
+                    "days": "WF",
+                    "start": "16:00",
+                    "end": "16:50",
+                    "available": true
+                },
+                {
+                    "crn": "65097",
+                    "sectionId": "AYJ",
+                    "type": "DIS",
+                    "days": "WF",
+                    "start": "13:00",
+                    "end": "13:50",
+                    "available": true
+                },
+                {
+                    "crn": "65098",
+                    "sectionId": "AYK",
+                    "type": "DIS",
+                    "days": "WF",
+                    "start": "14:00",
+                    "end": "14:50",
+                    "available": true
+                },
+                {
+                    "crn": "67005",
+                    "sectionId": "BL1",
+                    "type": "LEC",
+                    "days": "TR",
+                    "start": "11:00",
+                    "end": "12:15",
+                    "available": false
+                },
+                {
+                    "crn": "67949",
+                    "sectionId": "BYA",
+                    "type": "DIS",
+                    "days": "WF",
+                    "start": "09:00",
+                    "end": "09:50",
+                    "available": true
+                },
+                {
+                    "crn": "67951",
+                    "sectionId": "BYB",
+                    "type": "DIS",
+                    "days": "WF",
+                    "start": "10:00",
+                    "end": "10:50",
+                    "available": true
+                },
+                {
+                    "crn": "67953",
+                    "sectionId": "BYC",
+                    "type": "DIS",
+                    "days": "WF",
+                    "start": "13:00",
+                    "end": "13:50",
+                    "available": false
+                },
+                {
+                    "crn": "67955",
+                    "sectionId": "BYD",
+                    "type": "DIS",
+                    "days": "WF",
+                    "start": "14:00",
+                    "end": "14:50",
+                    "available": false
+                },
+                {
+                    "crn": "67957",
+                    "sectionId": "BYE",
+                    "type": "DIS",
+                    "days": "WF",
+                    "start": "15:00",
+                    "end": "15:50",
+                    "available": true
+                },
+                {
+                    "crn": "67959",
+                    "sectionId": "BYF",
+                    "type": "DIS",
+                    "days": "WF",
+                    "start": "16:00",
+                    "end": "16:50",
+                    "available": true
+                },
+                {
+                    "crn": "67961",
+                    "sectionId": "BYG",
+                    "type": "DIS",
+                    "days": "WF",
+                    "start": "15:00",
+                    "end": "15:50",
+                    "available": true
+                },
+                {
+                    "crn": "67963",
+                    "sectionId": "BYH",
+                    "type": "DIS",
+                    "days": "WF",
+                    "start": "16:00",
+                    "end": "16:50",
+                    "available": true
+                }
+            ]
+
     },
     {
-        "courseId": "CS 421",
-        "courseName": "Progrmg Languages & Compilers",
+
+            "courseId": "CS 421",
+            "courseName": "Progrmg Languages & Compilers",
+            "creditInfo": "3 OR 4 hours.",
+            "description": "Structure of programming languages and their implementation. Basic language design principles; abstract data types; functional languages; type systems; object-oriented languages. Basics of lexing, parsing, syntax-directed translation, semantic analysis, and code generation. 3 undergraduate hours. 3 or 4 graduate hours. Prerequisite: CS 233 and CS 373.",
+            "sections": [
+                {
+                    "crn": "31375",
+                    "sectionId": "B3",
+                    "type": "LEC",
+                    "days": "TR",
+                    "start": "17:00",
+                    "end": "18:15",
+                    "available": false
+                },
+                {
+                    "crn": "31376",
+                    "sectionId": "B4",
+                    "type": "LEC",
+                    "days": "TR",
+                    "start": "17:00",
+                    "end": "18:15",
+                    "available": false
+                },
+                {
+                    "crn": "63756",
+                    "sectionId": "C3",
+                    "type": "LEC",
+                    "days": "TR",
+                    "start": "15:30",
+                    "end": "16:45",
+                    "available": false
+                },
+                {
+                    "crn": "63757",
+                    "sectionId": "C4",
+                    "type": "LEC",
+                    "days": "TR",
+                    "start": "15:30",
+                    "end": "16:45",
+                    "available": false
+                }
+            ]
+
+
+    },
+    {
+        "courseId": "CS 423",
+        "courseName": "Operating Systems Design",
         "creditInfo": "3 OR 4 hours.",
-        "description": "Structure of programming languages and their implementation. Basic language design principles; abstract data types; functional languages; type systems; object-oriented languages. Basics of lexing, parsing, syntax-directed translation, semantic analysis, and code generation. 3 undergraduate hours. 3 or 4 graduate hours. Prerequisite: CS 233 and CS 373.",
+        "description": "Organization and structure of modern operating systems and concurrent programming concepts. Deadlock, virtual memory, processor scheduling, and disk systems. Performance, security, and protection. Same as CSE 423. 3 undergraduate hours. 3 or 4 graduate hours. Prerequisite: CS 241 or ECE 391.",
         "sections": [
             {
-                "crn": "31375",
-                "sectionId": "B3",
-                "type": "LEC",
-                "days": "TR",
-                "start": "17:00",
-                "end": "18:15"
-            },
-            {
-                "crn": "31376",
-                "sectionId": "B4",
-                "type": "LEC",
-                "days": "TR",
-                "start": "17:00",
-                "end": "18:15"
-            },
-            {
-                "crn": "63756",
+                "crn": "31378",
                 "sectionId": "C3",
                 "type": "LEC",
-                "days": "TR",
-                "start": "15:30",
-                "end": "16:45"
+                "days": "MWF",
+                "start": "11:00",
+                "end": "11:50",
+                "available": true
             },
             {
-                "crn": "63757",
+                "crn": "31379",
                 "sectionId": "C4",
                 "type": "LEC",
-                "days": "TR",
-                "start": "15:30",
-                "end": "16:45"
+                "days": "MWF",
+                "start": "11:00",
+                "end": "11:50",
+                "available": true
             }
         ]
     },
@@ -232,7 +287,8 @@ const courses = [
                 "type": "LEC",
                 "days": "MW",
                 "start": "08:00",
-                "end": "09:15"
+                "end": "09:15",
+                "available": false
             },
             {
                 "crn": "31355",
@@ -240,82 +296,64 @@ const courses = [
                 "type": "LEC",
                 "days": "MW",
                 "start": "08:00",
-                "end": "09:15"
+                "end": "09:15",
+                "available": false
             }
         ]
     },
     {
-        "courseId": "CS 431",
-        "courseName": "Embedded Systems",
-        "creditInfo": "3 or 4 hours.",
-        "description": "A survey of sampled data systems and embedded architecture; key concepts in common embedded system applications; signal processing and control; embedded microprocessor and device interface; time-critical I/O handling; data communications; real-time operating systems and techniques for the development and analysis of embedded real-time software; hands-on laboratory projects. 3 undergraduate hours. 3 or 4 graduate hours. Prerequisite: CS 241 or ECE 391.",
-        "sections": [
-            {
-                "crn": "31398",
-                "sectionId": "AB1",
-                "type": "LAB",
-                "days": "W",
-                "start": "15:00",
-                "end": "16:50"
-            },
-            {
-                "crn": "31401",
-                "sectionId": "AB2",
-                "type": "LAB",
-                "days": "W",
-                "start": "17:00",
-                "end": "18:50"
-            },
-            {
-                "crn": "31399",
-                "sectionId": "AB3",
-                "type": "LAB",
-                "days": "R",
-                "start": "17:00",
-                "end": "18:50"
-            },
-            {
-                "crn": "31393",
-                "sectionId": "AL3",
-                "type": "LEC",
-                "days": "TR",
-                "start": "12:30",
-                "end": "13:45"
-            },
-            {
-                "crn": "31396",
-                "sectionId": "AL4",
-                "type": "LEC",
-                "days": "TR",
-                "start": "12:30",
-                "end": "13:45"
-            }
-        ]
+    "courseId": "CS 431",
+    "courseName": "Embedded Systems",
+    "creditInfo": "3 or 4 hours.",
+    "description": "A survey of sampled data systems and embedded architecture; key concepts in common embedded system applications; signal processing and control; embedded microprocessor and device interface; time-critical I/O handling; data communications; real-time operating systems and techniques for the development and analysis of embedded real-time software; hands-on laboratory projects. 3 undergraduate hours. 3 or 4 graduate hours. Prerequisite: CS 241 or ECE 391.",
+    "sections": [
+    {
+        "crn": "31398",
+        "sectionId": "AB1",
+        "type": "LAB",
+        "days": "W",
+        "start": "15:00",
+        "end": "16:50",
+        "available": false
     },
     {
-        "courseId": "CS 423",
-        "courseName": "Operating Systems Design",
-        "creditInfo": "3 OR 4 hours.",
-        "description": "Organization and structure of modern operating systems and concurrent programming concepts. Deadlock, virtual memory, processor scheduling, and disk systems. Performance, security, and protection. Same as CSE 423. 3 undergraduate hours. 3 or 4 graduate hours. Prerequisite: CS 241 or ECE 391.",
-        "sections": [
-            {
-                "crn": "31378",
-                "sectionId": "C3",
-                "type": "LEC",
-                "days": "MWF",
-                "start": "11:00",
-                "end": "11:50"
-            },
-            {
-                "crn": "31379",
-                "sectionId": "C4",
-                "type": "LEC",
-                "days": "MWF",
-                "start": "11:00",
-                "end": "11:50"
-            }
-        ]
+        "crn": "31401",
+        "sectionId": "AB2",
+        "type": "LAB",
+        "days": "W",
+        "start": "17:00",
+        "end": "18:50",
+        "available": false
+    },
+    {
+        "crn": "31399",
+        "sectionId": "AB3",
+        "type": "LAB",
+        "days": "R",
+        "start": "17:00",
+        "end": "18:50",
+        "available": true
+    },
+    {
+        "crn": "31393",
+        "sectionId": "AL3",
+        "type": "LEC",
+        "days": "TR",
+        "start": "12:30",
+        "end": "13:45",
+        "available": true
+    },
+    {
+        "crn": "31396",
+        "sectionId": "AL4",
+        "type": "LEC",
+        "days": "TR",
+        "start": "12:30",
+        "end": "13:45",
+        "available": true
     }
+]
+}
 
 ]
 
@@ -379,6 +417,7 @@ function NavBar(props){
 }
 //show schedules for current plan
 function Get_button(props){
+
     if(props.status == "available") return( <Button size="mini" positive>&nbsp;&nbsp;&nbsp;available&nbsp;&nbsp;&nbsp;</Button>);
     else return (<Button size="mini" negative>unavailable</Button>);
 }
@@ -410,6 +449,18 @@ function ScheduleList(props){
 
         temp = props.currPlan.schedules.map((element, index)=>{
             //if(props.currPlan.favourate !== element.name)
+            let temp1 = element.split(";");
+            let i = 0
+            let status = "available";
+            for(i=0; i<temp1.length;i++){
+                if(temp1[i] == ""){
+                    continue;
+                }
+                if(d[temp1[i]].available == false){
+                    status = "unavailable"
+                }
+
+            }
             return(
 
                 <Card centered key={index} name={index} onClick={props.ScheduleClick}>
@@ -418,7 +469,7 @@ function ScheduleList(props){
                             <h3 className="schedule_name">Schedule {index}</h3>
                         </div>
                         <div className="available_tag">
-                            <Get_button status="available"/>
+                            <Get_button status={status}/>
                         </div>
                     </Card.Content>
                     <Card.Content extra>
@@ -507,7 +558,7 @@ function ScheduleBlock(props){
                     if(endH > Number(currTime[0]) && Number(endTime[1]) >= Number(currTime[1])+20)   // if 2 hours long, make the block 4 rows
                     {
                         return(
-                            <Table.Cell active rowSpan='4' key={props.time + element}>
+                            <Table.Cell className={info.available.toString()} rowSpan='4' key={props.time + element}>
                                 <p>{info.courseName}</p>
                                 <p>{info.sectionId}</p>
                                 <p>{info.start}-
@@ -518,7 +569,7 @@ function ScheduleBlock(props){
                     else if(endH > Number(currTime[0]))   // if longer than an hour, make the block 3 rows
                     {
                         return(
-                            <Table.Cell active rowSpan='3' key={props.time + element}>
+                            <Table.Cell className={info.available.toString()}  rowSpan='3' key={props.time + element}>
                                 <p>{info.courseName}</p>
                                 <p>{info.sectionId}</p>
                                 <p>{info.start}-
@@ -528,7 +579,7 @@ function ScheduleBlock(props){
                     }
                     else{
                         return(
-                            <Table.Cell active rowSpan='2' key={props.time + element}>
+                            <Table.Cell className={info.available.toString()} rowSpan='2' key={props.time + element}>
                                 <p>{info.courseName}</p>
                                 <p>{info.sectionId}</p>
                                 <p>{info.start}-
@@ -618,6 +669,7 @@ function Calendar(props){
 //Right Div
 function RightDiv(props) {
 	let temp = ""
+    let status1 = "available"
     if (props.currPlan != null) {
         temp = props.currPlan.courses.map((element, index) => {
             console.log(element);
@@ -627,6 +679,17 @@ function RightDiv(props) {
             )
 
         })
+        let temp1 = props.currPlan.schedules[props.currSchedule].split(";");
+        let i = 0
+        for(i=0; i<temp1.length;i++){
+            if(temp1[i] == ""){
+                continue;
+            }
+            if(d[temp1[i]].available == false){
+                status1 = "unavailable"
+            }
+
+        }
     }
 	return(
 		<div className="rightDiv">
@@ -646,8 +709,8 @@ function RightDiv(props) {
                         </Label>
                     </div>
                 </Segment>
-				<h3 className="status">Status: <span className={props.currPlan.schedules[props.currSchedule].status}>
-					&nbsp;&nbsp;&nbsp;{props.currPlan.schedules[props.currSchedule].status}</span>
+				<h3 className="status">Status: <span className={status1}>
+					&nbsp;&nbsp;&nbsp;{status1}</span>
 				</h3>
                 <div className="courses">
                     <a className="planInfoCourses course">Courses:&nbsp;&nbsp;&nbsp;</a>
