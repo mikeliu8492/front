@@ -247,7 +247,13 @@ function Footer(){
     return(<div className="footer"></div>);
 }
 
+function sorter(a,b){
+    let numA = a.courseId.split(" ")[1]
+    let numB = b.courseId.split(" ")[1]
+    return Number(numA)-Number(numB);
 
+
+}
 
 
 class CreatePlan extends Component{
@@ -315,6 +321,7 @@ class CreatePlan extends Component{
 		})
 	}
 
+
 	// input field
 	inputOnChange(event, {name}){
 		if(name == subjectStr){
@@ -353,6 +360,7 @@ class CreatePlan extends Component{
                     let num = course.courseId.substring(len-3,len);
                     if(num.indexOf(text) == 0) result.push(course);
                 });
+                result = result.sort(sorter);
                 this.setState({
                     courseList: result,
                     loading_course: false
@@ -409,7 +417,7 @@ class CreatePlan extends Component{
                 let num = course.courseId.substring(len-3,len);
                 if(num.indexOf(text) == 0) result.push(course);
             });
-
+            result = result.sort(sorter);
             this.setState({
                 courseList: result,
                 loading_course: false
