@@ -189,7 +189,7 @@ function ScheduleBlock(props){
             //console.log(currTime[0]);
             if(startH == currTime[0] && Number(startTime[1]) >= Number(currTime[1]) && Number(startTime[1]) < Number(currTime[1]) + 30){           //check if any sections have a start time matching the current row's time range
                 if(sDays.indexOf(element) > -1){//if time matches, check which day
-                    if(endH > Number(currTime[0]) && Number(endTime[1]) >= Number(currTime[1])+20)   // if 2 hours long, make the block 4 rows
+                    if(endH > Number(currTime[0]) && Number(endTime[1]) >= Number(currTime[1])+30)   // if 2 hours long, make the block 4 rows
                     {
                         return(
                             <Table.Cell className={info.available.toString()} rowSpan='4' key={props.time + element}>
