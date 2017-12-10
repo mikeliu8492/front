@@ -463,7 +463,8 @@ class CreatePlan extends Component{
 
     clearCourse(event){
         this.setState({
-            course:[]
+            course:[],
+            credit:0
         });
     }
 
