@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Redirect, Link } from 'react-router-dom'
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
-import styles from './register.scss';
+import styles from './Register.scss';
 import axios from "axios";
 
 class Register extends Component {
